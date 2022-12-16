@@ -60,8 +60,8 @@ def devolver_usuario(id):
     x = len(users)
     i = 0
     while i < x:
-        j = users[i]["id"]
-        if id_int == j:
+        usuario_id = users[i]["id"]
+        if id_int == usuario_id:
             return Response(users[i]["username"], status = HTTPStatus.OK)
         i = i + 1
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)                    
@@ -82,8 +82,8 @@ def devolver_comentarios(id):
     x = len(users)
     i = 0
     while i < x:
-        j = users[i]["id"]
-        if id_int == j:
+        usuario_id = users[i]["id"]
+        if id_int == usuario_id:
             return Response(users[i]["comments"], status = HTTPStatus.OK)
         i = i + 1
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)  
