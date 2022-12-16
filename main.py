@@ -1,9 +1,9 @@
 # from flask import Response, 
-# from http import HTTPStatus
 
+from http import HTTPStatus
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 
 #Funciones:
 
@@ -46,23 +46,43 @@ def devolver_usuarios():
     while i < x:
         usernames.append(datos_json["users"][i]["username"])
         i= i + 1
-    return (usernames)
+    return Response(usernames, status = HTTPStatus.OK)
 
 @app.route("/users/<id>", methods=["GET", "POST"])
 def devolver_usuario(id):
+    id_int = int(id)
     print(request.method)
     print('Me solicitaron: ' + id)
-    return (users[0]["id"])
+    x = len(users)
+    i = 0
+    while i < x:
+        j = users[i]["id"]
+        if id_int == j:
+            return Response(users[i]["username"], status = HTTPStatus.OK)
+        i = i + 1
+    return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)                    
 
 @app.route("/users/<string:usernameSearch>")
 def buscar_usuario(usernameSearch):
     for i in users:
-        if i['username'] == usernameSearch:
+        if i["username"] == usernameSearch:
             # usernameFound = i['username']
             return ("encontrado")
-        
             # return jsonify({"user": usernameFound})
-        else:
-            return "Usuario no encontrado"
+    return Response("No existe ningún usuario con ese USERNAME", status=HTTPStatus.BAD_REQUEST)                    
+
+@app.route("/users/<id>/comments")
+def devolver_comentarios(id):
+    id_int = int(id)
+    print('Me solicitaron: ' + id)
+    x = len(users)
+    i = 0
+    while i < x:
+        j = users[i]["id"]
+        if id_int == j:
+            return Response(users[i]["comments"], status = HTTPStatus.OK)
+        i = i + 1
+    return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)  
+
 
 app.run(debug=True)
