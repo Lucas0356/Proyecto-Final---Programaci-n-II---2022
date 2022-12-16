@@ -60,6 +60,7 @@ def buscar_usuario(usernameSearch):
         if i['username'] == usernameSearch:
             # usernameFound = i['username']
             return ("encontrado")
+        
             # return jsonify({"user": usernameFound})
         else:
             return "Usuario no encontrado"
