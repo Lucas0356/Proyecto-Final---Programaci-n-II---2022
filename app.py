@@ -31,13 +31,6 @@ app = Flask(__name__)
 datos_json = cargar_archivo()
 users = datos_json["users"]
 
-username_search = "Juancito2001"
-usernameSearch = "Juancito2001"
-
-for i in users:
-    if i['username'] == username_search:
-        print("encontrado")
-
 @app.route("/")
 def Inicio():
     return ("<center><h1>Movie World</h1></center>")
@@ -45,7 +38,7 @@ def Inicio():
 @app.route("/users")
 def devolver_usuarios():
     x = len(datos_json["users"])
-    usernames = []
+    usernames = ["Usuarios: "]
     i = 0
     while i < x:
         usernames.append(datos_json["users"][i]["username"]+', ')
@@ -81,10 +74,13 @@ def devolver_comentarios(id):
     print('Me solicitaron: ' + id)
     x = len(users)
     i = 0
+    comentarios = ["Comentarios:\n"]
     while i < x:
         usuario_id = users[i]["id"]
         if id_int == usuario_id:
-            return Response(users[i]["comments"], status = HTTPStatus.OK)
+            for comentario in (users[i]["comments"]):
+                comentarios.append(comentario + ", ")
+            return Response(comentarios, status = HTTPStatus.OK)
         i = i + 1
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)  
 
