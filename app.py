@@ -1,5 +1,6 @@
 # from flask import Response, 
 
+import urllib
 from http import HTTPStatus
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import json
@@ -16,13 +17,30 @@ def menu_principal():
     print('[2] Modo invitado')
     print('[0] Salir')
     print('-------------------------------')
-    input('Ingrese una opción: ')
     return
 
 def cargar_archivo():
     with open("datos.json") as archivo:
         datos_json = json.load(archivo)
         return datos_json
+
+def usernames(datos_json):
+    x = len(datos_json["users"])
+    usernames = []
+    i = 0
+    while i < x:
+        usernames.append(datos_json["users"][i]["username"])
+        i= i + 1
+    return (usernames)
+    
+
+def iniciar_sesión(usernames):
+    system("cls")
+    INnombre_usuario = input("Ingrese su nombre de usuario: ")
+    INcontraseña = input("ingrese su contraseña: ")
+    for i in usernames:
+        if i == INnombre_usuario:
+            print("Nombre correcto")
 
 # Código:
 
@@ -31,6 +49,14 @@ app = Flask(__name__)
 datos_json = cargar_archivo()
 users = datos_json["users"]
 
+# menu_principal()
+# opcion = input("ingrese una opción: ")
+# if opcion == '1':
+#     # usernames = usernames(datos_json)
+#     usernames = requests.get('http://127.0.0.1:5000/users')
+#     iniciar_sesión(usernames)
+
+
 @app.route("/")
 def Inicio():
     return ("<center><h1>Movie World</h1></center>")
@@ -38,12 +64,12 @@ def Inicio():
 @app.route("/users")
 def devolver_usuarios():
     x = len(datos_json["users"])
-    usernames = ["Usuarios: "]
+    usernames = []
     i = 0
     while i < x:
-        usernames.append(datos_json["users"][i]["username"]+', ')
+        usernames.append(datos_json["users"][i]["username"])
         i= i + 1
-    return Response(usernames, status = HTTPStatus.OK)
+    return Response(jsonify(usernames), status = HTTPStatus.OK)
 
 @app.route("/users/<id>", methods=["GET", "POST"])
 def devolver_usuario(id):
@@ -74,13 +100,14 @@ def devolver_comentarios(id):
     print('Me solicitaron: ' + id)
     x = len(users)
     i = 0
-    comentarios = ["Comentarios:\n"]
+    comentarios = []
     while i < x:
         usuario_id = users[i]["id"]
         if id_int == usuario_id:
             for comentario in (users[i]["comments"]):
-                comentarios.append(comentario + ", ")
-            return Response(comentarios, status = HTTPStatus.OK)
+                comentarios.append(comentario)
+            comentarios_string = 'Comentarios: ', ', '.join(comentarios)
+            return Response(comentarios_string, status = HTTPStatus.OK)
         i = i + 1
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)  
 

@@ -1,8 +1,8 @@
 {
   "users": [
   {
-      "id": 0,
       "username": "Juancito2001",
+      "id": 0,
       "password": "messi",
       "contributions": null,
       "comments": 
@@ -12,8 +12,8 @@
         }
     },
     {
-      "id": 1,
       "username": "RicarditoCABJ",
+      "id": 1,
       "password": "bokitapasion",
       "contributions": null,
       "comments":
@@ -23,8 +23,8 @@
         }
     },
     {
-      "id": 2,
       "username": "MoristeEnMadrid",
+      "id": 2,
       "password": "nuevedeldoce",
       "contributions": null,
       "comments":
