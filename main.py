@@ -26,8 +26,8 @@ def iniciar_sesión(usuarios):
         contador = 0
         for usuario in usuarios:
             if INusuario != usuario["username"]:
+                contador = contador + 1
                 if contador == contador_max:
-                    contador= contador + 1
                     print ("\nNombre de usuario inexistente")
                     continue
             elif INusuario == usuario["username"]:
