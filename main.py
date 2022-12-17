@@ -1,6 +1,5 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
-import json
-from flask import request
+import requests, json
 
 #funciones
 
@@ -15,14 +14,38 @@ def menu_principal():
     print('-------------------------------')
     return
 
+def cargar_usuarios():
+    with open('datos_json/usuarios.json') as archivo:
+        datos_json = json.load(archivo)
+        return datos_json
+
+def iniciar_sesión(usuarios):
+    while True:
+        INusuario = input("\nIngrese su nombre de usuario: ")
+        for usuario in usuarios:
+            if INusuario == usuario["username"]:
+                INcontraseña = input ("\ningrese su contraseña: ")
+                datos_usuarios = cargar_usuarios()
+                for usuario in datos_usuarios["users"]:
+                    if usuario["username"] == INusuario:
+                        if INcontraseña == usuario["password"]:
+                            print('\nBienvenido ' + INusuario + '!')
+                            return
+                        else: 
+                            print ("\nContraseña incorrecta")
+                            continue
+        else:
+            print ("\nNombre de usuario inexistente")
+            continue
+
 menu_principal()
 opcion = input("ingrese una opción: ")
 if opcion == '1':
-    usuarios = request.get('http://127.0.0.1:5000/users')
-    print(usuarios.json())
-    
+    usuarios = requests.get('http://127.0.0.1:5000/users')
+    iniciar_sesión(usuarios.json())
+    print("\nque desea hacer?")
 elif opcion == '2':
-    ultimas10 = request.get('http://127.0.0.1:5000/films/last10')
+    ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
     print(ultimas10.json())
-elif opcion == '3':
+elif opcion == '0':
     exit

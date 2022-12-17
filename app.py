@@ -29,8 +29,7 @@ def devolver_usuarios():
     usuarios = []
     for usuario in datos_usuarios["users"]:
         usuarios.append({
-            "username": usuario["username"],
-            "id": usuario["id"]}
+            "username": usuario["username"]}
         )
     return jsonify(usuarios)
 
@@ -134,7 +133,6 @@ def buscar_película(film_search):
         if film_search == película["title"]:
             return jsonify(película)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
-
 
 @app.route("/films/<string:film_search>/comments")
 def ver_comentarios(film_search):
