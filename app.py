@@ -129,10 +129,16 @@ def devolver_generos():
 @app.route("/films/<string:film_search>")
 def buscar_película(film_search):
     datos_películas = cargar_películas()
+    films_found = []
     for película in datos_películas["films"]:
-        if film_search in película["title"]:
-            return jsonify(película)
-    return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+        if film_search.lower() in película["title"].lower():
+            films_found.append(
+                película
+            )
+    if films_found == []:
+        return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+    else: 
+        return jsonify(films_found)
 
 @app.route("/films/<string:film_search>/comments")
 def ver_comentarios(film_search):

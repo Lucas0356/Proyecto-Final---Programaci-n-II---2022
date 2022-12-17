@@ -17,6 +17,14 @@
         "link_image": "https://pics.filmaffinity.com/one_piece_film_red-407711303-mmed.jpg"
     },
     {
+        "title": "Spiderman-1",
+        "year": "2004",
+        "director": "Sam Raimi",
+        "gender": "Accion",
+        "synopsis": "El atormentado Peter Parker lucha contra un cientifico siniestro que utiliza sus tentáculos mecanicos con fines destructivos.",
+        "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx"
+    },
+    {
         "title": "Spiderman-2",
         "year": "2004",
         "director": "Sam Raimi",

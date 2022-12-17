@@ -1,5 +1,6 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import requests, json
+from http import HTTPStatus
 
 # _______________________________________________________________ Funciones _______________________________________________________________
 
@@ -57,8 +58,12 @@ def iniciar_sesión(usuarios):
 def buscar_película_nombre():
     INpelícula = input("Ingrese la película que desea buscar: ")
     film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
-    print(film_search.json())
-    return
+    if INpelícula in film_search:
+        print(film_search.json())
+        return
+    else:
+        print ("\nPelícula inexistente")
+        return
 
 # _______________________________________________________________ Código _______________________________________________________________
 
