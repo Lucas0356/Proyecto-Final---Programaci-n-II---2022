@@ -54,6 +54,11 @@ def iniciar_sesión(usuarios):
                             print ("\nContraseña incorrecta")
                             continue
 
+def buscar_película_nombre():
+    INpelícula = input("Ingrese la película que desea buscar: ")
+    film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
+    print(film_search.json())
+    return
 
 menu_principal()
 opcion = input("ingrese una opción: ")
@@ -61,6 +66,7 @@ if opcion == '1':
     usuarios = requests.get('http://127.0.0.1:5000/users')
     usuarioin = iniciar_sesión(usuarios.json())
     menu_usuario(usuarioin)
+    buscar_película_nombre()
 
 elif opcion == '2':
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
