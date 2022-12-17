@@ -20,3 +20,8 @@ opcion = input("ingrese una opción: ")
 if opcion == '1':
     usuarios = request.get('http://127.0.0.1:5000/users')
     print(usuarios.json())
+elif opcion == '2':
+    ultimas10 = request.get('http://127.0.0.1:5000/films/last10')
+    print(ultimas10.json())
+elif opcion == '3':
+    exit
