@@ -115,7 +115,21 @@ def crear_usuario():
 
 #Películas:
 
-@app.route("/films/directores")
+@app.route("/films")
+def devolver_películas():
+    datos_películas = cargar_películas()
+    películas = []
+    for película in datos_películas["films"]:
+        películas.append({
+            "title": película["title"],
+            "director": película["director"],
+            "year": película["year"],
+            "gender": película["gender"],
+            "synopsis": película["synopsis"]}
+        )
+    return jsonify(películas)
+
+@app.route("/films/directors")
 def devolver_directores():
     datos_películas = cargar_películas()
     directores = []
