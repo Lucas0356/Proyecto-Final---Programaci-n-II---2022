@@ -22,8 +22,15 @@ def cargar_usuarios():
 def iniciar_sesión(usuarios):
     while True:
         INusuario = input("\nIngrese su nombre de usuario: ")
+        contador_max = len(usuarios)
+        contador = 0
         for usuario in usuarios:
-            if INusuario == usuario["username"]:
+            if INusuario != usuario["username"]:
+                if contador == contador_max:
+                    contador= contador + 1
+                    print ("\nNombre de usuario inexistente")
+                    continue
+            elif INusuario == usuario["username"]:
                 INcontraseña = input ("\ningrese su contraseña: ")
                 datos_usuarios = cargar_usuarios()
                 for usuario in datos_usuarios["users"]:
@@ -34,9 +41,7 @@ def iniciar_sesión(usuarios):
                         else: 
                             print ("\nContraseña incorrecta")
                             continue
-        else:
-            print ("\nNombre de usuario inexistente")
-            continue
+
 
 menu_principal()
 opcion = input("ingrese una opción: ")
