@@ -15,6 +15,22 @@
         "gender": "Adventure/Comedy",
         "synopsis": "Sonic y su compañero Tails emprenden un viaje alrededor del mundo en busca de una esmeralda que tiene del poder de destruir civilizaciones.",
         "link_image": "https://pics.filmaffinity.com/one_piece_film_red-407711303-mmed.jpg"
+    },
+    {
+        "title": "Spiderman-2",
+        "year": "2004",
+        "director": "Sam Raimi",
+        "gender": "Adventure/Action",
+        "synopsis": "El atormentado Peter Parker lucha contra un científico siniestro que utiliza sus tentáculos mecánicos con fines destructivos.",
+        "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx"
+    },
+    {
+        "title": "Dragon Ball Super Super Hero",
+        "year": "2022",
+        "director": "Tetsuro Kodama",
+        "gender": "Fantasy/Action",
+        "synopsis": "La malvada organización Red Ribbon Army se reforma con nuevos y más poderosos androides, Gamma 1 y Gamma 2 para buscar venganza.",
+        "link_image": "https://static.wikia.nocookie.net/dragonball/images/6/6e/Dragon_Ball_Super_Super_Hero_%28novela_ligera%29_portada.png/revision/latest?cb=20220311180826&path-prefix=es"
     }
     ]
 }
