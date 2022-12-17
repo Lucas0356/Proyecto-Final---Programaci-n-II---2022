@@ -121,7 +121,7 @@ def devolver_generos():
     datos_películas = cargar_películas()
     generos = []
     for película in datos_películas["films"]:
-        if película["gender"] not in generos:
+        if {"gender": película["gender"]} not in generos:
             generos.append({
                 "gender": película["gender"]}
             )
