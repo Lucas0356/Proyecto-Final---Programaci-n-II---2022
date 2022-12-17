@@ -13,7 +13,7 @@ def menu_principal():
     print('       Nombre Programa         ')
     print('-------------------------------')
     print('[1] Iniciar sesión')
-    print('[2] Modo invitado')
+    print('[2] Modo público')
     print('[0] Salir')
     print('-------------------------------')
     return
@@ -112,5 +112,18 @@ def crear_usuario():
     else:
         return Response("{}",status=HTTPStatus.BAD_REQUEST)
 
+
+#Películas:
+
+@app.route("/films")
+def devolver_directores():
+    datos_películas = cargar_películas()
+    directores = []
+    for película in datos_películas["films"]:
+        directores.append({
+            "title": película["title"],
+            "director": película["director"]}
+        )
+    return jsonify(directores)
 
 app.run(debug=True)
