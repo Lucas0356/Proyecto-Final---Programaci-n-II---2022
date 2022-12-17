@@ -115,7 +115,7 @@ def crear_usuario():
 
 #Películas:
 
-@app.route("/films")
+@app.route("/films/directores")
 def devolver_directores():
     datos_películas = cargar_películas()
     directores = []
