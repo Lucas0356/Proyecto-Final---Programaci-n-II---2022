@@ -99,10 +99,11 @@ def buscar_usuario(username_search):
 def crear_usuario():
     datos_usuarios = cargar_usuarios()
     datos_cliente =request.get_json()
+    id_nuevo_usuario = len(datos_usuarios["users"])
     if "username" in datos_cliente and "password" in datos_cliente:
         datos_usuarios["users"].append({
             "username": datos_cliente["username"],
-            "id":1,
+            "id":id_nuevo_usuario,
             "password": datos_cliente["password"],
             "contributions": 0,
             "comments": {}
