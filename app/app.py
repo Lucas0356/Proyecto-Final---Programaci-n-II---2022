@@ -21,12 +21,12 @@ def menu_principal():
 def cargar_películas():
     with open('datos_json/películas.json') as archivo:
         datos_json = json.load(archivo)
-        return datos_json["films"]
+        return datos_json
 
 def cargar_usuarios():
     with open('datos_json/usuarios.json') as archivo:
         datos_json = json.load(archivo)
-        return datos_json["users"]
+        return datos_json
 
 # Código:
 
@@ -48,7 +48,7 @@ def Inicio():
 def devolver_usuarios():
     datos_usuarios = cargar_usuarios()
     usuarios = []
-    for usuario in datos_usuarios:
+    for usuario in datos_usuarios["users"]:
         usuarios.append({
             "username": usuario["username"],
             "id": usuario["id"]}
@@ -60,7 +60,7 @@ def devolver_usuario(id):
     id_int = int(id)
     print('Me solicitaron: ' + id)
     datos_usuarios = cargar_usuarios()
-    for usuario in datos_usuarios:
+    for usuario in datos_usuarios["users"]:
         if id_int == usuario["id"]:
             usuario_info={
                 "username": usuario["username"],
@@ -76,7 +76,7 @@ def devolver_comentarios(id):
     id_int = int(id)
     datos_usuarios = cargar_usuarios()
     print('Me solicitaron: ' + id)
-    for usuario in datos_usuarios:
+    for usuario in datos_usuarios["users"]:
         if id_int == usuario["id"]:
             return jsonify(usuario["comments"])
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)
@@ -86,7 +86,7 @@ def buscar_usuario(username_search):
     print(type(username_search))
     print (username_search)
     datos_usuarios = cargar_usuarios()
-    for usuario in datos_usuarios:
+    for usuario in datos_usuarios["users"]:
         if username_search == usuario["username"]:
             usuario_info={
                 "username": usuario["username"],
@@ -97,19 +97,19 @@ def buscar_usuario(username_search):
             return jsonify(usuario_info)
     return Response("No existe ningún usuario con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/users/create", methods=["POST"])
+@app.route("/users", methods=["POST"])
 def crear_usuario():
     datos_usuarios = cargar_usuarios()
     datos_cliente =request.get_json()
-    cant_usuarios = len(datos_usuarios)
     if "username" in datos_cliente and "password" in datos_cliente:
-        datos_usuarios[cant_usuarios-1] = { #ESTO REEMPLAZA EL ULTIMO, NO LO AGREGA, HAY QUE SOLUCIONAR ESTE ERROR
+        datos_usuarios["users"].append({
             "username": datos_cliente["username"],
             "id":1,
             "password": datos_cliente["password"],
             "contributions": 0,
             "comments": {}
         }
+        )
         return jsonify(datos_usuarios)
     else:
         return Response("{}",status=HTTPStatus.BAD_REQUEST)
