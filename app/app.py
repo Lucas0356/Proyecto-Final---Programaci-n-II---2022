@@ -83,8 +83,6 @@ def devolver_comentarios(id):
 
 @app.route("/<string:username_search>") #Tuve que quitar el /users pq sino iba al del id
 def buscar_usuario(username_search):
-    print(type(username_search))
-    print (username_search)
     datos_usuarios = cargar_usuarios()
     for usuario in datos_usuarios["users"]:
         if username_search == usuario["username"]:
