@@ -4,7 +4,7 @@
         "title": "Sonic 2: The movie",
         "year": "2022",
         "director": "Jeff Fowler",
-        "gender": "Adventure/Comedy",
+        "gender": "Aventura",
         "synopsis": "Sonic y su companero Tails emprenden un viaje alrededor del mundo en busca de una esmeralda que tiene del poder de destruir civilizaciones.",
         "link_image": "https://static.wikia.nocookie.net/sonic/images/4/43/Poster-sonic-2-pelicula-2620373.jpg/revision/latest/scale-to-width-down/345?cb=20220219011536&path-prefix=es"
     },
@@ -12,7 +12,7 @@
         "title": "One Piece Film: Red",
         "year": "2022",
         "director": "Goro Taniguchi",
-        "gender": "Adventure/Action",
+        "gender": "Aventura",
         "synopsis": "Uta, la cantante más popular del mundo, va a presentarse en un escenario y revelar su apariencia por primera vez. Luffy y sus amigos acuden al concierto y se dan cuenta de que la voz de Uta es capaz de cambiarlo todo.",
         "link_image": "https://pics.filmaffinity.com/one_piece_film_red-407711303-mmed.jpg"
     },
@@ -20,7 +20,7 @@
         "title": "Spiderman-2",
         "year": "2004",
         "director": "Sam Raimi",
-        "gender": "Adventure/Action",
+        "gender": "Accion",
         "synopsis": "El atormentado Peter Parker lucha contra un cientifico siniestro que utiliza sus tentáculos mecanicos con fines destructivos.",
         "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx"
     },
@@ -28,9 +28,57 @@
         "title": "Dragon Ball Super Super Hero",
         "year": "2022",
         "director": "Tetsuro Kodama",
-        "gender": "Fantasy/Action",
+        "gender": "Fantasia",
         "synopsis": "La malvada organizacion Red Ribbon Army se reforma con nuevos y mas poderosos androides, Gamma 1 y Gamma 2 para buscar venganza.",
         "link_image": "https://static.wikia.nocookie.net/dragonball/images/6/6e/Dragon_Ball_Super_Super_Hero_%28novela_ligera%29_portada.png/revision/latest?cb=20220311180826&path-prefix=es"
+    },
+    {
+        "title": "El Padrino",
+        "year": "1972",
+        "director": "Francis Ford Coppola",
+        "gender": "Crimen",
+        "synopsis": "Don Vito Corleone es el respetado y temido jefe de una de las cinco familias de la mafia de Nueva York en los anos 40. El hombre tiene cuatro hijos: Connie, Sonny, Fredo y Michael, que no quiere saber nada de los negocios sucios de su padre. Cuando otro capo, Sollozzo, intenta asesinar a Corleone, empieza una cruenta lucha entre los distintos clanes.​",
+        "link_image": "https://es.web.img3.acsta.net/pictures/18/06/12/12/12/0117051.jpg?coixp=49&coiyp=27"
+    },
+    {
+        "title": "Titanic",
+        "year": "1997",
+        "director": "James Cameron",
+        "gender": "Romance",
+        "synopsis": "Una joven de la alta sociedad abandona a su arrogante pretendiente por un artista humilde en el trasatlantico que se hundio durante su viaje inaugural.​",
+        "link_image": "https://r3.abcimg.es/resizer/resizer.php?imagen=https%3A%2F%2Fstatic4.abc.es%2Fmedia%2Fpeliculas%2F000%2F044%2F428%2Ftitanic-1.jpg&nuevoancho=620&medio=abc"
+    },
+    {
+        "title": "Avatar",
+        "year": "2009",
+        "director": "James Cameron",
+        "gender": "Ciencia Ficcion",
+        "synopsis": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que aparentan ser primitivos pero que en realidad son muy evolucionados. Debido a que el ambiente de Pandora es venenoso, los hibridos humanos/Na'vi, llamados Avatares, estan relacionados con las mentes humanas, lo que les permite moverse libremente por Pandora. Jake Sully, un exinfante de marina paralitico se transforma a traves de un Avatar, y se enamora de una mujer Na'vi.​",
+        "link_image": "https://pics.filmaffinity.com/Avatar-265462659-large.jpg"
+    },
+    {
+        "title": "Alicia en el pais de las Maravillas",
+        "year": "2010",
+        "director": "Tim Burton",
+        "gender": "Fantasia",
+        "synopsis": "Alicia, ahora una joven de 19 anos de edad, regresa al Pais de las Maravillas para encontrar su verdadero destino y terminar con el gobierno de terror de la malvada reina Roja.​",
+        "link_image": "https://pics.filmaffinity.com/Alicia_en_el_pa_s_de_las_maravillas-913066428-large.jpg"
+    },
+    {
+        "title": "Piratas del Caribe: La maldicion del Perla Negra",
+        "year": "2003",
+        "director": "Gore Verbinski",
+        "gender": "Accion",
+        "synopsis": "El capitan Barbossa le roba el barco al pirata Jack Sparrow y secuestra a Elizabeth, amiga de Will Turner. Barbossa y su tripulacion son victimas de un conjuro que los condena a vivir eternamente y a transformarse cada noche en esqueletos vivientes.​",
+        "link_image": "https://static.wikia.nocookie.net/cine/images/6/62/Piratas_del_Caribe.jpg/revision/latest?cb=20201006154235"
+    },
+    {
+        "title": "Forrest Gump",
+        "year": "1994",
+        "director": "Robert Zemeckis",
+        "gender": "Drama",
+        "synopsis": "​Forrest Gump, un joven sureno, tenaz e inocente, es protagonista de acontecimientos cruciales en la historia de los Estados Unidos.",
+        "link_image": "https://pics.filmaffinity.com/Forrest_Gump-212765827-large.jpg"
     }
     ]
 }
