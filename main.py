@@ -5,15 +5,28 @@ from http import HTTPStatus
 # _______________________________________________________________ Funciones _______________________________________________________________
 
 def menu_principal():
-    system("cls") #Limpia la terminal
-    print('-------------------------------')
-    print('       Nombre Programa         ')
-    print('-------------------------------')
-    print('[1] Iniciar sesión')
-    print('[2] Modo público')
-    print('[0] Salir')
-    print('-------------------------------')
-    return
+    while True:
+        system("cls") #Limpia la terminal
+        print('-------------------------------')
+        print('       Nombre Programa         ')
+        print('-------------------------------')
+        print('[1] Iniciar sesión')
+        print('[2] Modo público')
+        print('[3] Registrarse')
+        print('[0] Salir')
+        print('-------------------------------')
+        INopcion = input("\nIngrese una opción: ")
+        if INopcion.isdigit() == True:
+            if int(INopcion) >= 0 and int(INopcion) <= 3:
+                return (INopcion)
+            else:
+                print("\nIngrese una opción válida")
+                time.sleep(1)
+                continue
+        else:
+            print("\nIngrese una opción válida")
+            time.sleep(1)
+            continue
     
 def menu_usuario(usuario):
     while True:
@@ -26,7 +39,7 @@ def menu_usuario(usuario):
         print('[3] Agregar Comentario')
         print('[4] Editar Comentario')
         print('[5] Buscar')
-        print('[0] Volver al menú principal')
+        print('[0] Salir')
         print('-------------------------------')
         INopcion = input("\nIngrese una opción: ")
         if INopcion.isdigit() == True:
@@ -66,7 +79,8 @@ def cargar_directores():
         directores = json.load(archivo_directores)
         return directores
 
-def iniciar_sesión(usuarios):
+def iniciar_sesión():
+    usuarios = (requests.get('http://127.0.0.1:5000/users').json())
     while True:
         INusuario = input("\nIngrese su nombre de usuario: ")
         contador_max = len(usuarios)
@@ -88,6 +102,39 @@ def iniciar_sesión(usuarios):
                         else: 
                             print ("\nContraseña incorrecta")
                             continue
+
+def registrar_usuario():
+    while True:
+        system("cls") #Limpia la terminal
+        print('\n--------------------------------')
+        print('    Registrar nuevo usuario   ')
+        print('--------------------------------')
+        INnombre_usuario = input("\nIngrese su nombre de usuario: ")
+        usuarios = (requests.get('http://127.0.0.1:5000/users').json())
+        contador_max = len(usuarios)
+        contador = 0
+        for usuario in usuarios:
+            if INnombre_usuario != usuario["username"]:
+                contador = contador + 1 
+                if contador == contador_max: # Con esto nos aseguramos que recorra todos los usuarios, y que no sea igual a otro username
+                    INcontraseña_usuario = input("\nIngrese su contraseña: ")
+                    print ('\nNombre de usuario: ' +  INnombre_usuario)
+                    print('Contraseña: ' +  INcontraseña_usuario)
+                    print('¿Los datos son correctos?')
+                    INopcion = input("\n[1] Para sí [0] Para no: ")
+                    if INopcion == '1':
+                        nuevo_usuario={
+                            "username": INnombre_usuario,
+                            "password": INcontraseña_usuario
+                        }
+                        usuarios = requests.post('http://127.0.0.1:5000/users',json=nuevo_usuario)
+                        print (usuarios.json())
+                        return
+        else:
+            print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
+            time.sleep(2)
+            continue
+
 
 def buscar_película_nombre():
     system("cls") #Limpia la terminal
@@ -172,12 +219,10 @@ def elegir_director():
 
 # _______________________________________________________________ Código _______________________________________________________________
 
-menu_principal()
-opcion = input("ingrese una opción: ")
-if opcion == '1':
-    usuarios = requests.get('http://127.0.0.1:5000/users')
-    usuarioin = iniciar_sesión(usuarios.json())
-    INopcion = menu_usuario(usuarioin)
+INopcion = menu_principal()
+if INopcion == '1':
+    usuarioIN = iniciar_sesión()
+    INopcion = menu_usuario(usuarioIN)
     if INopcion == '1':
         print('[1] Agregar Pelicula')
     if INopcion == '2':
@@ -188,12 +233,13 @@ if opcion == '1':
         print('[4] Editar Comentario')
     if INopcion == '5':
         buscar_película_nombre()
-    if INopcion == '6':
-        print('[0] Volver al menú principal')
+    if INopcion == '0':
+        exit
 
-
-elif opcion == '2':
+elif INopcion == '2':
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
     print(ultimas10.json())
-elif opcion == '0':
+elif INopcion == '3':
+    registrar_usuario()
+elif INopcion == '0':
     exit
