@@ -1,0 +1,28 @@
+{
+    "genders": [
+        {
+            "gender":"Accion"
+        },
+        {
+            "gender":"Aventura"
+        },
+        {
+            "gender":"Ciencia Ficcion"
+        },
+        {
+            "gender":"Comedia"
+        },
+        {
+            "gender":"Drama"
+        },
+        {
+            "gender":"Fantasia"
+        },
+        {
+            "gender":"Suspenso"
+        },
+        {
+            "gender":"Terror"
+        }
+    ]
+}
