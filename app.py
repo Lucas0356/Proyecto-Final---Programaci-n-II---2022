@@ -136,6 +136,26 @@ def devolver_directores():
         )
     return jsonify(directores)
 
+@app.route("/films/<string:film_search>")
+def buscar_película(film_search):
+    datos_películas = cargar_películas()
+    for película in datos_películas["films"]:
+        if film_search == película["title"]:
+            return jsonify(película)
+    return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+
+@app.route("/films/<string:film_search>", methods=["DELETE"])
+def borrar_película(film_search):
+    datos_películas = cargar_películas()
+    for película in datos_películas["films"]:
+        if film_search == película["title"]:
+            datos_películas["films"].remove(película)
+            print ('Se borro correctamente', film_search)
+            
+            return Response(status=HTTPStatus.OK)
+    return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+
+
 app.run(debug=True)
 
 
