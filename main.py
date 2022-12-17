@@ -13,6 +13,18 @@ def menu_principal():
     print('[0] Salir')
     print('-------------------------------')
     return
+    
+def menu_usuario(usuario):
+    print('-------------------------------')
+    print('         ',usuario)
+    print('-------------------------------')
+    print('[1] Agregar Pelicula')
+    print('[2] Editar Pelicula')
+    print('[3] Agregar Comentario')
+    print('[4] Editar Comentario')
+    print('[5] Buscar')
+    print('-------------------------------')
+    return
 
 def cargar_usuarios():
     with open('datos_json/usuarios.json') as archivo:
@@ -37,7 +49,7 @@ def iniciar_sesión(usuarios):
                     if usuario["username"] == INusuario:
                         if INcontraseña == usuario["password"]:
                             print('\nBienvenido ' + INusuario + '!')
-                            return
+                            return INusuario
                         else: 
                             print ("\nContraseña incorrecta")
                             continue
@@ -47,8 +59,9 @@ menu_principal()
 opcion = input("ingrese una opción: ")
 if opcion == '1':
     usuarios = requests.get('http://127.0.0.1:5000/users')
-    iniciar_sesión(usuarios.json())
-    print("\nque desea hacer?")
+    usuarioin = iniciar_sesión(usuarios.json())
+    menu_usuario(usuarioin)
+
 elif opcion == '2':
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
     print(ultimas10.json())
