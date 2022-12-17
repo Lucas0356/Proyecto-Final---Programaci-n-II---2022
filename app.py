@@ -145,6 +145,16 @@ def borrar_película(film_search):
             return Response(status=HTTPStatus.OK)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
+@app.route("/films/last10")
+def mostrar_ultimas10():
+    datos_películas = cargar_películas()
+    peliculas = []
+    for i in reversed(datos_películas["films"]) :
+        peliculas.append(i)
+        if len(peliculas) == 10:
+            break
+    return jsonify(peliculas)
+
 app.run(debug=True)
 
 
