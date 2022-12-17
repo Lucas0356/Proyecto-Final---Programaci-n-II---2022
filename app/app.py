@@ -97,21 +97,22 @@ def buscar_usuario(username_search):
             return jsonify(usuario_info)
     return Response("No existe ningún usuario con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/users", methods=["POST"]) # no funciona, no se pq
+@app.route("/users/create", methods=["POST"])
 def crear_usuario():
     datos_usuarios = cargar_usuarios()
     datos_cliente =request.get_json()
-    print(datos_cliente)
-    if "username" in datos_cliente & "password" in datos_cliente:
-        datos_usuarios.append({
+    cant_usuarios = len(datos_usuarios)
+    if "username" in datos_cliente and "password" in datos_cliente:
+        datos_usuarios[cant_usuarios-1] = { #ESTO REEMPLAZA EL ULTIMO, NO LO AGREGA, HAY QUE SOLUCIONAR ESTE ERROR
             "username": datos_cliente["username"],
             "id":1,
             "password": datos_cliente["password"],
             "contributions": 0,
-            "comments": {}}
-            )
-        return Response(datos_cliente["username"],status=HTTPStatus.OK)
+            "comments": {}
+        }
+        return jsonify(datos_usuarios)
     else:
         return Response("{}",status=HTTPStatus.BAD_REQUEST)
+
 
 app.run(debug=True)
