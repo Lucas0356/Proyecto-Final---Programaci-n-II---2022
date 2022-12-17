@@ -1,7 +1,7 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import requests, json
 
-#funciones
+# _______________________________________________________________ Funciones _______________________________________________________________
 
 def menu_principal():
     system("cls") #Limpia la terminal
@@ -59,6 +59,8 @@ def buscar_película_nombre():
     film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
     print(film_search.json())
     return
+
+# _______________________________________________________________ Código _______________________________________________________________
 
 menu_principal()
 opcion = input("ingrese una opción: ")

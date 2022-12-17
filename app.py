@@ -130,7 +130,7 @@ def devolver_generos():
 def buscar_película(film_search):
     datos_películas = cargar_películas()
     for película in datos_películas["films"]:
-        if film_search == película["title"]:
+        if film_search in película["title"]:
             return jsonify(película)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
