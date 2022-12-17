@@ -1,0 +1,13 @@
+{
+    "films": [
+    {
+    "Sonic 2: The movie":
+        {
+        "Year": "2022",
+        "Director": "Jeff Fowler",
+        "Gender": "Adventure/Comedy",
+        "Synopsis": "Sonic y su compañero Tails emprenden un viaje alrededor del mundo en busca de una esmeralda que tiene del poder de destruir civilizaciones."
+        }
+    }
+    ]
+}
