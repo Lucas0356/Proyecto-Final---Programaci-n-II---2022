@@ -77,9 +77,8 @@ def iniciar_sesión(usuarios):
 
 def buscar_película_nombre():
     INpelícula = input("Ingrese la película que desea buscar: ")
-    film_search = str(requests.get('http://127.0.0.1:5000/films/'+INpelícula))
-    print(film_search.json())
-    if INpelícula in film_search.json():
+    film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
+    if str(film_search) != '<Response [400]>':
         print(film_search.json())
         return
     else:
