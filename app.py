@@ -116,14 +116,14 @@ def devolver_directores():
             )
     return jsonify(directores)
 
-@app.route("/films/genres")
+@app.route("/films/gender")
 def devolver_generos():
     datos_películas = cargar_películas()
     generos = []
     for película in datos_películas["films"]:
-        if película["genre"] not in generos:
+        if película["gender"] not in generos:
             generos.append({
-                "genre": película["gender"]}
+                "gender": película["gender"]}
             )
     return jsonify(generos)
 
