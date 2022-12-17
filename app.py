@@ -135,6 +135,21 @@ def buscar_película(film_search):
             return jsonify(película)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
+
+@app.route("/films/<string:film_search>/comments")
+def ver_comentarios(film_search):
+    datos_usuarios = cargar_usuarios()
+    comentarios = []
+    for usuario in datos_usuarios["users"]:
+        for comentario_película in usuario["comments"]:
+            if film_search == comentario_película:
+                comentarios.append({
+                    "username": usuario["username"],
+                    "comment": usuario["comments"][film_search]}
+                )
+                return jsonify(comentarios)
+    return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
+
 @app.route("/films/<string:film_search>", methods=["DELETE"])
 def borrar_película(film_search):
     datos_películas = cargar_películas()
