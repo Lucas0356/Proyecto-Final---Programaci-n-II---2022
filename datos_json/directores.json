@@ -1,0 +1,46 @@
+{
+    "directors": [
+        {   
+            "director":"Alfonso Cuaron"
+        },
+        {
+            "director":"Clint Eastwood"
+        },
+        {
+            "director":"Francis Ford Coppola"
+        },
+        {
+            "director":"Gore Verbinski"
+        },
+        {
+            "director":"Goro Taniguchi"
+        },
+        {
+            "director":"James Cameron"
+        },
+        {
+            "director":"Jeff Fowler"
+        },
+        {
+            "director":"Quentin Tarantino" 
+        },
+        {
+            "director":"Robert Zemeckis"
+        },
+        {
+            "director":"Sam Raimi"
+        },
+        {
+            "director":"Steven Spielberg"
+        },
+        {
+            "director":"Tetsuro Kodama"
+        },
+        {
+            "director":"Tim Burton"
+        },
+        {
+            "director":"Woody Allen"
+        }
+    ]
+}
