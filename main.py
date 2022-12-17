@@ -1,5 +1,5 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
-import requests, json
+import requests, json, time
 from http import HTTPStatus
 
 # _______________________________________________________________ Funciones _______________________________________________________________
@@ -16,16 +16,30 @@ def menu_principal():
     return
     
 def menu_usuario(usuario):
-    print('-------------------------------')
-    print('         ',usuario)
-    print('-------------------------------')
-    print('[1] Agregar Pelicula')
-    print('[2] Editar Pelicula')
-    print('[3] Agregar Comentario')
-    print('[4] Editar Comentario')
-    print('[5] Buscar')
-    print('-------------------------------')
-    return
+    while True:
+        system("cls") #Limpia la terminal
+        print('\n-------------------------------')
+        print('         ',usuario)
+        print('-------------------------------')
+        print('[1] Agregar Pelicula')
+        print('[2] Editar Pelicula')
+        print('[3] Agregar Comentario')
+        print('[4] Editar Comentario')
+        print('[5] Buscar')
+        print('[0] Volver al menú principal')
+        print('-------------------------------')
+        INopcion = input("\nIngrese una opción: ")
+        if INopcion.isdigit() == True:
+            if int(INopcion) >= 0 and int(INopcion) <= 5:
+                return (INopcion)
+            else:
+                print("\nIngrese una opción válida")
+                time.sleep(1)
+                continue
+        else:
+            print("\nIngrese una opción válida")
+            time.sleep(1)
+            continue
 
 def menu_genero():
     print('\n-------------------------------')
@@ -76,9 +90,14 @@ def iniciar_sesión(usuarios):
                             continue
 
 def buscar_película_nombre():
-    INpelícula = input("Ingrese la película que desea buscar: ")
+    system("cls") #Limpia la terminal
+    print('\n--------------------------------')
+    print('Buscador de películas por nombre')
+    print('--------------------------------\n')
+    INpelícula = input("Ingrese el nombre de la película que desea buscar: ")
     film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
     if str(film_search) != '<Response [400]>':
+        print('\nResultados obtenidos = ', len(film_search.json()),"\n")
         print(film_search.json())
         return
     else:
@@ -158,8 +177,20 @@ opcion = input("ingrese una opción: ")
 if opcion == '1':
     usuarios = requests.get('http://127.0.0.1:5000/users')
     usuarioin = iniciar_sesión(usuarios.json())
-    menu_usuario(usuarioin)
-    buscar_película_nombre()
+    INopcion = menu_usuario(usuarioin)
+    if INopcion == '1':
+        print('[1] Agregar Pelicula')
+    if INopcion == '2':
+        print('[2] Editar Pelicula')
+    if INopcion == '3':
+        print('[3] Agregar Comentario')
+    if INopcion == '4':
+        print('[4] Editar Comentario')
+    if INopcion == '5':
+        buscar_película_nombre()
+    if INopcion == '6':
+        print('[0] Volver al menú principal')
+
 
 elif opcion == '2':
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
