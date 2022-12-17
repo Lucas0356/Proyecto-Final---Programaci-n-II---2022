@@ -110,10 +110,10 @@ def devolver_directores():
     datos_películas = cargar_películas()
     directores = []
     for película in datos_películas["films"]:
-        directores.append({
-            "title": película["title"],
-            "director": película["director"]}
-        )
+        if película["director"] not in directores:
+            directores.append({
+                "director": película["director"]}
+            )
     return jsonify(directores)
 
 @app.route("/films/<string:film_search>")
@@ -131,7 +131,6 @@ def borrar_película(film_search):
         if film_search == película["title"]:
             datos_películas["films"].remove(película)
             print ('Se borro correctamente', film_search)
-            
             return Response(status=HTTPStatus.OK)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
