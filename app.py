@@ -1,22 +1,9 @@
-# from flask import Response, 
-
 from http import HTTPStatus
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import json
 from flask import Flask, jsonify, request, Response
 
 #Funciones:
-
-def menu_principal():
-    system("cls") #Limpia la terminal
-    print('-------------------------------')
-    print('       Nombre Programa         ')
-    print('-------------------------------')
-    print('[1] Iniciar sesión')
-    print('[2] Modo público')
-    print('[0] Salir')
-    print('-------------------------------')
-    return
 
 def cargar_películas():
     with open('datos_json/películas.json') as archivo:
@@ -31,14 +18,6 @@ def cargar_usuarios():
 # Código:
 
 app = Flask(__name__)
-
-# menu_principal()
-# opcion = input("ingrese una opción: ")
-# if opcion == '1':
-#     # usernames = usernames(datos_json)
-#     usernames = requests.get('http://127.0.0.1:5000/users')
-#     iniciar_sesión(usernames)
-
 
 @app.route("/")
 def Inicio():
@@ -156,8 +135,8 @@ def borrar_película(film_search):
             return Response(status=HTTPStatus.OK)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
-
 app.run(debug=True)
+
 
 
             # "title": película["title"],
