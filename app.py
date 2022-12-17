@@ -120,12 +120,8 @@ def devolver_películas():
     datos_películas = cargar_películas()
     películas = []
     for película in datos_películas["films"]:
-        películas.append({
-            "title": película["title"],
-            "director": película["director"],
-            "year": película["year"],
-            "gender": película["gender"],
-            "synopsis": película["synopsis"]}
+        películas.append(
+            película
         )
     return jsonify(películas)
 
@@ -141,3 +137,11 @@ def devolver_directores():
     return jsonify(directores)
 
 app.run(debug=True)
+
+
+            # "title": película["title"],
+            # "director": película["director"],
+            # "year": película["year"],
+            # "gender": película["gender"],
+            # "synopsis": película["synopsis"],
+            # "link_image": película["link_image"]}
