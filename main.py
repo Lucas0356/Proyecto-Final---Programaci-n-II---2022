@@ -19,4 +19,4 @@ menu_principal()
 opcion = input("ingrese una opción: ")
 if opcion == '1':
     usuarios = request.get('http://127.0.0.1:5000/users')
-    print(usuarios)
+    print(usuarios.json())
