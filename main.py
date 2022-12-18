@@ -53,6 +53,31 @@ def menu_usuario(usuario):
             time.sleep(1)
             continue
 
+def menu_buscar(): 
+    while True:
+        system("cls") #Limpia la terminal
+        print('\n-------------------------------')
+        print('          Menu buscar'         )
+        print('-------------------------------')
+        print('[1] Buscar por nombre')
+        print('[2] Buscar por director')
+        print('[3] Buscar por género')
+        print('[0] Salir')
+        print('-------------------------------')
+        INopcion = input("\nIngrese una opción: ")
+        if INopcion.isdigit() == True:
+            if int(INopcion) >= 0 and int(INopcion) <= 3:
+                return (INopcion)
+            else:
+                print("\nIngrese una opción válida")
+                time.sleep(1)
+                continue
+        else:
+            print("\nIngrese una opción válida")
+            time.sleep(1)
+            continue
+
+
 def menu_genero():
     print('\n-------------------------------')
     print('       Escogedor de Genero       ')
@@ -189,6 +214,23 @@ def buscar_película_nombre():
         print ("\nPelícula inexistente")
         return
 
+def buscar_película_director():
+    system("cls") #Limpia la terminal
+    director = elegir_director()
+    director_search = requests.get('http://127.0.0.1:5000/films/directors/'+director)
+    if str(director_search) != '<Response [400]>':
+        system("cls") #Limpia la terminal
+        print ('\nPelículas disponibles de ', director, len(director_search.json()),"\n")
+        for película in director_search.json():
+            time.sleep(1)
+            print ('-------------------------------')
+            print ('Título: ', película["director"])
+            print ('-------------------------------\n')
+        return
+    else:
+        print ('\nAún no hay películas publicadas de', director)
+        return
+
 def agregar_película():
     comprobador = True
     while comprobador:
@@ -307,15 +349,23 @@ while bucle == 1:
             print('\n[1] Usted escogio, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
             print('ya cargados en el sistema.')
             agregar_película()
-        if INopcion == '2':
+        elif INopcion == '2':
             print('[2] Editar Pelicula')
-        if INopcion == '3':
+        elif INopcion == '3':
             print('[3] Agregar Comentario')
-        if INopcion == '4':
+        elif INopcion == '4':
             print('[4] Editar Comentario')
-        if INopcion == '5':
-            buscar_película_nombre()
-        if INopcion == '0':
+        elif INopcion == '5':
+            INopcion = menu_buscar()
+            if INopcion == '1':
+                buscar_película_nombre()
+            elif INopcion == '2':
+                buscar_película_director()
+            elif INopcion == '3':
+                print('opcion3')
+            elif INopcion == '0':
+                continue
+        elif INopcion == '0':
             exit
     elif INopcion == '2':
         ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')

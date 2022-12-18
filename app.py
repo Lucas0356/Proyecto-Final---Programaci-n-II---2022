@@ -115,6 +115,21 @@ def devolver_directores():
             )
     return jsonify(directores)
 
+@app.route("/films/directors/<string:director_search>")
+def devolver_películas_director(director_search):
+    datos_películas = cargar_películas()
+    películas = []
+    for película in datos_películas["films"]:
+        if director_search == película["director"]:
+            if película["title"] not in películas:
+                películas.append({
+                    "director": película["title"]}
+                )
+    if películas == []:
+        return Response('No hay películas cargadas con ese director', status=HTTPStatus.BAD_REQUEST)
+    else:
+        return jsonify(películas)
+
 @app.route("/films/gender")
 def devolver_generos():
     datos_películas = cargar_películas()
@@ -175,12 +190,3 @@ def mostrar_ultimas10():
     return jsonify(peliculas)
 
 app.run(debug=True)
-
-
-
-            # "title": película["title"],
-            # "director": película["director"],
-            # "year": película["year"],
-            # "gender": película["gender"],
-            # "synopsis": película["synopsis"],
-            # "link_image": película["link_image"]}
