@@ -26,7 +26,7 @@ def menu_principal():
             print("\nIngrese una opción válida")
             time.sleep(1)
             continue
-    
+
 def menu_usuario(usuario):
     while True:
         system("cls") #Limpia la terminal
@@ -81,6 +81,7 @@ def cargar_directores():
 def iniciar_sesión():
     usuarios = (requests.get('http://127.0.0.1:5000/users').json())
     while True:
+        system("cls") #Limpia la terminal
         INusuario = input("\nIngrese su nombre de usuario: ")
         contador_max = len(usuarios)
         contador = 0
@@ -88,8 +89,12 @@ def iniciar_sesión():
             if INusuario != usuario["username"]:
                 contador = contador + 1
                 if contador == contador_max:
-                    print ("\nNombre de usuario inexistente")
-                    continue
+                    print("\nNombre de usuario inexistente")
+                    INopcion = input('\n[1] Para continuar [0] Para salir: ')
+                    if INopcion =='1':
+                        continue
+                    else:
+                        return
             elif INusuario == usuario["username"]:
                 INcontraseña = input ("\ningrese su contraseña: ")
                 datos_usuarios = cargar_usuarios()
@@ -101,6 +106,7 @@ def iniciar_sesión():
                         else: 
                             print ("\nContraseña incorrecta")
                             continue
+        
 
 def registrar_usuario():
     while True:
@@ -231,30 +237,33 @@ def elegir_director():
     return director
 
 
-
-
 # _______________________________________________________________ Código _______________________________________________________________
 
-INopcion = menu_principal()
-if INopcion == '1':
-    usuarioIN = iniciar_sesión()
-    INopcion = menu_usuario(usuarioIN)
+bucle = 1 # Lo usaremos para luego romper el bucle
+while bucle == 1:
+    INopcion = menu_principal()
     if INopcion == '1':
-        print('[1] Agregar Pelicula')
-    if INopcion == '2':
-        print('[2] Editar Pelicula')
-    if INopcion == '3':
-        print('[3] Agregar Comentario')
-    if INopcion == '4':
-        print('[4] Editar Comentario')
-    if INopcion == '5':
-        buscar_película_nombre()
-    if INopcion == '0':
+        usuarioIN = iniciar_sesión()
+        if usuarioIN == None:
+            continue
+        INopcion = menu_usuario(usuarioIN)
+        if INopcion == '1':
+            print('[1] Agregar Pelicula')
+        if INopcion == '2':
+            print('[2] Editar Pelicula')
+        if INopcion == '3':
+            print('[3] Agregar Comentario')
+        if INopcion == '4':
+            print('[4] Editar Comentario')
+        if INopcion == '5':
+            buscar_película_nombre()
+        if INopcion == '0':
+            exit
+    elif INopcion == '2':
+        ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
+        print(ultimas10.json())
+    elif INopcion == '3':
+        registrar_usuario()
+    elif INopcion == '0':
         exit
-elif INopcion == '2':
-    ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
-    print(ultimas10.json())
-elif INopcion == '3':
-    registrar_usuario()
-elif INopcion == '0':
-    exit
+    bucle = 0 # Para romper el bucle
