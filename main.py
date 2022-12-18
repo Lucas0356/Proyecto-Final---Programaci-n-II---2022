@@ -110,7 +110,11 @@ def iniciar_sesión():
                             return INusuario
                         else: 
                             print ("\nContraseña incorrecta")
-                            continue
+                            INopcion = input('\n[1] Para continuar [0] Para salir: ')
+                            if INopcion =='1':
+                                continue
+                            else:
+                                return
 
 def registrar_usuario():
     while True:
@@ -138,12 +142,15 @@ def registrar_usuario():
                         }
                         usuarios = requests.post('http://127.0.0.1:5000/users',json=nuevo_usuario)
                         modificar_json_usuarios(usuarios.json()) # Función que agrega el nuevo usuario al json
+                        system("cls") #Limpia la terminal
                         print("¡Usuario creado con éxito!")
+                        return (nuevo_usuario["username"])
+                    else:
                         return
-        else:
-            print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
-            time.sleep(2)
-            continue
+            else:
+                print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
+                time.sleep(2)
+                continue
 
 def modificar_json_usuarios(usuarios_actualizado):
     usuarios_json = open ("datos_json/usuarios.json", 'w', encoding='utf-8')
@@ -168,6 +175,7 @@ def buscar_película_nombre():
         system("cls") #Limpia la terminal
         print('\nResultados obtenidos = ', len(film_search.json()),"\n")
         for película in film_search.json():
+            time.sleep(1)
             print ('-------------------------------')
             print ('Título: ', película["title"])
             print ('Director: ', película["director"])
@@ -313,9 +321,12 @@ while bucle == 1:
         ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
         print(ultimas10.json())
     elif INopcion == '3':
-        registrar_usuario()
-        time.sleep(3)
-        continue
+        nuevo_usuario = registrar_usuario()
+        if nuevo_usuario == None:
+            continue
+        else:
+            time.sleep(3)
+            continue
     elif INopcion == '0':
         exit
     bucle = 0 # Para romper el bucle
