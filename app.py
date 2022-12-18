@@ -142,8 +142,8 @@ def devolver_películas_director(director_search):
     for película in datos_películas["films"]:
         if director_search == película["director"]:
             if película["title"] not in películas:
-                películas.append({
-                    "director": película["title"]}
+                películas.append(
+                    película
                 )
     if películas == []:
         return Response('No hay películas cargadas con ese director', status=HTTPStatus.BAD_REQUEST)

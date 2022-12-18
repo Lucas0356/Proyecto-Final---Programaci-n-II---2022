@@ -223,7 +223,12 @@ def buscar_película_director():
         for película in director_search.json():
             time.sleep(1)
             print ('-------------------------------')
-            print ('Título: ', película["director"])
+            print ('Título: ', película["title"])
+            print ('Director: ', película["director"])
+            print ('Género: ', película["gender"])
+            print ('Año: ', película["year"])
+            print ('Sinopsis: ', película["synopsis"])
+            print ('Imagen representativa: ', película["link_image"])
             print ('-------------------------------\n')
         return
     else:
@@ -342,9 +347,10 @@ while bucle == 1:
         INopcion = menu_usuario(usuarioIN)
         if INopcion == '1':
             time.sleep(0.2)
-            print('\n[1] Usted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+            print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
             print('ya cargados en el sistema.')
             agregar_película()
+            continue
         elif INopcion == '2':
             print('[2] Editar Pelicula')
         elif INopcion == '3':
@@ -356,7 +362,6 @@ while bucle == 1:
             if INopcion == '1':
                 buscar_película_nombre()
                 INopcion = input("\nIngrese algo para volver al menú: ")
-                continue
             elif INopcion == '2':
                 buscar_película_director()
                 INopcion = input("\nIngrese algo para volver al menú: ")
