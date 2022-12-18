@@ -202,11 +202,11 @@ def borrar_película(film_search):
 @app.route("/films/last10")
 def mostrar_ultimas10():
     datos_películas = cargar_películas()
-    peliculas = []
-    for i in reversed(datos_películas["films"]) :
-        peliculas.append(i)
-        if len(peliculas) == 10:
+    películas = []
+    for película in reversed(datos_películas["films"]) :
+        películas.append(película)
+        if len(películas) == 10:
             break
-    return jsonify(peliculas)
+    return jsonify(películas)
 
 app.run(debug=True)

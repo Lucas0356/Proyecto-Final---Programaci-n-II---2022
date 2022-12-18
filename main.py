@@ -57,7 +57,7 @@ def menu_buscar():
     while True:
         system("cls") #Limpia la terminal
         print('\n-------------------------------')
-        print('          Menu buscar'         )
+        print('          Menú buscar'         )
         print('-------------------------------')
         print('[1] Buscar por nombre')
         print('[2] Buscar por director')
@@ -334,6 +334,21 @@ def elegir_director():
     
     return director
 
+def ultimas_diez():
+    ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
+    system("cls") #Limpia la terminal
+    print('\nÚltimas 10 películas cargadas al sistema:',"\n")
+    for película in ultimas10.json():
+        time.sleep(1)
+        print ('-------------------------------')
+        print ('Título: ', película["title"])
+        print ('Director: ', película["director"])
+        print ('Género: ', película["gender"])
+        print ('Año: ', película["year"])
+        print ('Sinopsis: ', película["synopsis"])
+        print ('Imagen representativa: ', película["link_image"])
+        print ('-------------------------------\n')
+    return
 
 # _______________________________________________________________ Código _______________________________________________________________
 
@@ -375,8 +390,7 @@ while bucle == 1:
             elif INopcion == '0':
                 break
     elif INopcion == '2':
-        ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
-        print(ultimas10.json())
+        ultimas_diez()
     elif INopcion == '3':
         nuevo_usuario = registrar_usuario()
         if nuevo_usuario == None:
