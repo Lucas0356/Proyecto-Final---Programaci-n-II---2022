@@ -340,16 +340,30 @@ def ultimas_diez():
     print('\nÚltimas 10 películas cargadas al sistema:',"\n")
     for película in ultimas10.json():
         time.sleep(1)
-        print ('-------------------------------')
+        print ('===============================')
         print ('Título: ', película["title"])
         print ('Director: ', película["director"])
         print ('Género: ', película["gender"])
         print ('Año: ', película["year"])
         print ('Sinopsis: ', película["synopsis"])
         print ('Imagen representativa: ', película["link_image"])
-        print ('-------------------------------\n')
+        print ('-------------------------------')
+        print ('Comentarios:')
+        print ('-------------------------------')
+        buscar_comentarios(película["title"])
+        print ('===============================\n')
     return
 
+def buscar_comentarios(film_title):
+    comentarios_película = requests.get('http://127.0.0.1:5000/films/'+film_title+'/comments')
+    if str(comentarios_película) != '<Response [400]>':
+        for comentario in comentarios_película.json():
+            print ('Usuario: ', comentario["username"])
+            print ('Comentario: ', comentario["comment"])
+            print ('-------------------------------')
+    else:
+        print ("Sin comentarios")
+        return
 # _______________________________________________________________ Código _______________________________________________________________
 
 bucle = 1 # Lo usaremos para luego romper el bucle
