@@ -101,7 +101,7 @@ def iniciar_sesión():
                     else:
                         return
             elif INusuario == usuario["username"]:
-                INcontraseña = input ("\ningrese su contraseña: ")
+                INcontraseña = input ("\nIngrese su contraseña: ")
                 datos_usuarios = cargar_usuarios()
                 for usuario in datos_usuarios["users"]:
                     if usuario["username"] == INusuario:
@@ -300,6 +300,8 @@ while bucle == 1:
         print(ultimas10.json())
     elif INopcion == '3':
         registrar_usuario()
+        time.sleep(3)
+        continue
     elif INopcion == '0':
         exit
     bucle = 0 # Para romper el bucle
