@@ -222,14 +222,18 @@ def buscar_película_director():
         print ('\nPelículas disponibles de ', director, len(director_search.json()),"\n")
         for película in director_search.json():
             time.sleep(1)
-            print ('-------------------------------')
+            print ('===============================')
             print ('Título: ', película["title"])
             print ('Director: ', película["director"])
             print ('Género: ', película["gender"])
             print ('Año: ', película["year"])
             print ('Sinopsis: ', película["synopsis"])
             print ('Imagen representativa: ', película["link_image"])
-            print ('-------------------------------\n')
+            print ('-------------------------------')
+            print ('Comentarios:')
+            print ('-------------------------------')
+            buscar_comentarios(película["title"])
+            print ('===============================\n')
         return
     else:
         print ('\nAún no hay películas publicadas de', director)
@@ -363,6 +367,7 @@ def buscar_comentarios(film_title):
             print ('-------------------------------')
     else:
         print ("Sin comentarios")
+        print ('-------------------------------')
         return
 # _______________________________________________________________ Código _______________________________________________________________
 
