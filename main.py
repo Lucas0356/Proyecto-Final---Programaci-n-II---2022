@@ -77,7 +77,6 @@ def menu_buscar():
             time.sleep(1)
             continue
 
-
 def menu_genero():
     print('\n-------------------------------')
     print('       Escogedor de Genero       ')
@@ -346,7 +345,7 @@ while bucle == 1:
         INopcion = menu_usuario(usuarioIN)
         if INopcion == '1':
             time.sleep(0.2)
-            print('\n[1] Usted escogio, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+            print('\n[1] Usted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
             print('ya cargados en el sistema.')
             agregar_película()
         elif INopcion == '2':
@@ -359,8 +358,12 @@ while bucle == 1:
             INopcion = menu_buscar()
             if INopcion == '1':
                 buscar_película_nombre()
+                INopcion = input("\nIngrese algo para volver al menú: ")
+                continue
             elif INopcion == '2':
                 buscar_película_director()
+                INopcion = input("\nIngrese algo para volver al menú: ")
+                continue
             elif INopcion == '3':
                 print('opcion3')
             elif INopcion == '0':
