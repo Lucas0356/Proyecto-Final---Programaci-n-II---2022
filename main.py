@@ -78,6 +78,11 @@ def cargar_directores():
         directores = json.load(archivo_directores)
         return directores
 
+def cargar_películas():
+    with open('datos_json/películas.json') as archivo_películass:
+        películas = json.load(archivo_películass)
+        return películas
+
 def iniciar_sesión():
     usuarios = (requests.get('http://127.0.0.1:5000/users').json())
     while True:
@@ -171,6 +176,36 @@ def buscar_película_nombre():
         print ("\nPelícula inexistente")
         return
 
+def agregar_película():
+    comprobador = True
+    while comprobador:
+        genero = elegir_genero()
+        director = elegir_director()
+        peliculas = cargar_películas()
+        new_movie = {}
+        title_movie = input("Ingrese el titulo de la pelicula que desea añadir: ")
+        year_movie = input("Ingrese el año de la pelicula que desea añadir: ")
+        synopsis_movie = input("Ingrese la sinopsis de la pelicula que desea añadir: ")
+        img_movie = input("Ingrese la URL a la portada de la pelicula que desea añadir: ")
+        new_movie = {
+            "title": title_movie,
+            "year": year_movie,
+            "director": director,
+            "gender": genero,
+            "sinopsis": synopsis_movie,
+            "link_image": img_movie
+        }
+        print("\nEsta seguro que desea añadir esta pelicula?\n")
+        print (new_movie)
+        op = input("\nOpcion [1] Si [2] No : ")
+        if op == "1":
+            peliculas["films"].append(new_movie)
+            print (peliculas)
+            print("\nUsted añadio correctamente su pelicula.")
+            comprobador = False
+        if op == "2":
+            continue
+
 def elegir_genero():
     menu_genero()
     generos = cargar_generos()
@@ -249,6 +284,7 @@ while bucle == 1:
         INopcion = menu_usuario(usuarioIN)
         if INopcion == '1':
             print('[1] Agregar Pelicula')
+            agregar_película()
         if INopcion == '2':
             print('[2] Editar Pelicula')
         if INopcion == '3':
