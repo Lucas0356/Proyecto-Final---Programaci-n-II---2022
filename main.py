@@ -149,8 +149,17 @@ def buscar_película_nombre():
     INpelícula = input("Ingrese el nombre de la película que desea buscar: ")
     film_search = requests.get('http://127.0.0.1:5000/films/'+INpelícula)
     if str(film_search) != '<Response [400]>':
+        system("cls") #Limpia la terminal
         print('\nResultados obtenidos = ', len(film_search.json()),"\n")
-        print(film_search.json())
+        for película in film_search.json():
+            print ('-------------------------------')
+            print ('Título: ', película["title"])
+            print ('Director: ', película["director"])
+            print ('Género: ', película["gender"])
+            print ('Año: ', película["year"])
+            print ('Sinopsis: ', película["synopsis"])
+            print ('Imagen representativa: ', película["link_image"])
+            print ('-------------------------------\n')
         return
     else:
         print ("\nPelícula inexistente")
@@ -242,7 +251,6 @@ if INopcion == '1':
         buscar_película_nombre()
     if INopcion == '0':
         exit
-
 elif INopcion == '2':
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
     print(ultimas10.json())
