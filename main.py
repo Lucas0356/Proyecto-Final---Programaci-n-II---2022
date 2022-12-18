@@ -1,6 +1,5 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
-import requests, json, time
-from http import HTTPStatus
+import requests, json, time, os
 
 # _______________________________________________________________ Funciones _______________________________________________________________
 
@@ -128,13 +127,19 @@ def registrar_usuario():
                             "password": INcontraseña_usuario
                         }
                         usuarios = requests.post('http://127.0.0.1:5000/users',json=nuevo_usuario)
-                        print (usuarios.json())
+                        modificar_json_usuarios(usuarios.json()) # Función que agrega el nuevo usuario al json
+                        print("¡Usuario creado con éxito!")
                         return
         else:
             print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
             time.sleep(2)
             continue
 
+def modificar_json_usuarios(usuarios_actualizado):
+    usuarios_json = open ("datos_json/usuarios.json", 'w', encoding='utf-8')
+    json.dump(usuarios_actualizado, usuarios_json, indent = 4)
+    usuarios_json.close()
+    return 
 
 def buscar_película_nombre():
     system("cls") #Limpia la terminal
@@ -215,6 +220,8 @@ def elegir_director():
         director = "Woody Allen"
     
     return director
+
+
 
 
 # _______________________________________________________________ Código _______________________________________________________________
