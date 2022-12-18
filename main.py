@@ -1,5 +1,5 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
-import requests, json, time
+import requests, json, time, re
 
 # _______________________________________________________________ Funciones _______________________________________________________________
 
@@ -269,23 +269,43 @@ def buscar_película_género():
         print ('\nAún no hay películas publicadas de', genero)
         return
 
+def comprobar_url():
+    while True:
+        url_imagen = input("Ingrese la URL a la portada de la pelicula que desea añadir: ")
+        url = re.compile("^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$")
+        if url.search(url_imagen): # Comprobemos que sea una URL válida
+            print("URL válida")
+            return(url_imagen)
+        else:
+            print("URL no válida")
+            print("Ejemplo URL válida: https://www.google.com/")
+            continue
+
+def comprobar_año():
+    while True:
+        año = input("Ingrese el año de la pelicula que desea añadir: ")
+        if año.isdigit():
+            if int(año) >= 1900 and int(año) <= 2023:
+                return (año)
+        print("Año no válido")
+
 def agregar_película():
     comprobador = True
     while comprobador:
         genero = elegir_genero()
         director = elegir_director()
         title_movie = input("Ingrese el titulo de la pelicula que desea añadir: ")
-        year_movie = input("Ingrese el año de la pelicula que desea añadir: ")
+        year_movie = comprobar_año()
         synopsis_movie = input("Ingrese la sinopsis de la pelicula que desea añadir: ")
-        img_movie = input("Ingrese la URL a la portada de la pelicula que desea añadir: ")
+        img_movie = comprobar_url()
         new_movie ={
-            "title": title_movie,
+            "title": title_movie.capitalize(),
             "year": year_movie,
-            "director": director,
+            "director": director.capitalize(),
             "gender": genero,
-            "synopsis": synopsis_movie,
+            "synopsis": synopsis_movie.capitalize(),
             "link_image": img_movie
-        }
+            }
         print("\nEsta seguro que desea añadir esta pelicula?\n")
         print (new_movie)
         op = input("\nOpcion [1] Si [2] No : ")
@@ -296,6 +316,7 @@ def agregar_película():
             comprobador = False
         if op == "2":
             return
+        continue
 
 def elegir_genero():
     menu_genero()
