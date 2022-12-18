@@ -261,7 +261,7 @@ def agregar_película():
             print("\nUsted añadio correctamente su pelicula!")
             comprobador = False
         if op == "2":
-            continue
+            return
 
 def elegir_genero():
     menu_genero()
@@ -344,34 +344,36 @@ while bucle == 1:
         usuarioIN = iniciar_sesión()
         if usuarioIN == None:
             continue
-        INopcion = menu_usuario(usuarioIN)
-        if INopcion == '1':
-            time.sleep(0.2)
-            print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
-            print('ya cargados en el sistema.')
-            agregar_película()
-            continue
-        elif INopcion == '2':
-            print('[2] Editar Pelicula')
-        elif INopcion == '3':
-            print('[3] Agregar Comentario')
-        elif INopcion == '4':
-            print('[4] Editar Comentario')
-        elif INopcion == '5':
-            INopcion = menu_buscar()
+        while True: 
+            INopcion = menu_usuario(usuarioIN)
             if INopcion == '1':
-                buscar_película_nombre()
-                INopcion = input("\nIngrese algo para volver al menú: ")
+                time.sleep(0.2)
+                print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+                print('ya cargados en el sistema.')
+                agregar_película()
+                continue
             elif INopcion == '2':
-                buscar_película_director()
-                INopcion = input("\nIngrese algo para volver al menú: ")
-                continue
+                print('[2] Editar Pelicula')
             elif INopcion == '3':
-                print('opcion3')
+                print('[3] Agregar Comentario')
+            elif INopcion == '4':
+                print('[4] Editar Comentario')
+            elif INopcion == '5':
+                INopcion = menu_buscar()
+                if INopcion == '1':
+                    buscar_película_nombre()
+                    INopcion = input("\nIngrese algo para volver al menú: ")
+                    continue
+                elif INopcion == '2':
+                    buscar_película_director()
+                    INopcion = input("\nIngrese algo para volver al menú: ")
+                    continue
+                elif INopcion == '3':
+                    print('opcion3')
+                elif INopcion == '0':
+                    continue
             elif INopcion == '0':
-                continue
-        elif INopcion == '0':
-            exit
+                break
     elif INopcion == '2':
         ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
         print(ultimas10.json())
