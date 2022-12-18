@@ -200,14 +200,18 @@ def buscar_película_nombre():
         print('\nResultados obtenidos = ', len(film_search.json()),"\n")
         for película in film_search.json():
             time.sleep(1)
-            print ('-------------------------------')
+            print ('===============================')
             print ('Título: ', película["title"])
             print ('Director: ', película["director"])
             print ('Género: ', película["gender"])
             print ('Año: ', película["year"])
             print ('Sinopsis: ', película["synopsis"])
             print ('Imagen representativa: ', película["link_image"])
-            print ('-------------------------------\n')
+            print ('-------------------------------')
+            print ('Comentarios:')
+            print ('-------------------------------')
+            buscar_comentarios(película["title"])
+            print ('===============================\n')
         return
     else:
         print ("\nPelícula inexistente")
@@ -237,6 +241,32 @@ def buscar_película_director():
         return
     else:
         print ('\nAún no hay películas publicadas de', director)
+        return
+
+def buscar_película_género():
+    system("cls") #Limpia la terminal
+    genero = elegir_genero()
+    genero_search = requests.get('http://127.0.0.1:5000/films/gender/'+genero)
+    if str(genero_search) != '<Response [400]>':
+        system("cls") #Limpia la terminal
+        print ('\nPelículas disponibles de ', genero, len(genero_search.json()),"\n")
+        for película in genero_search.json():
+            time.sleep(1)
+            print ('===============================')
+            print ('Título: ', película["title"])
+            print ('Director: ', película["director"])
+            print ('Género: ', película["gender"])
+            print ('Año: ', película["year"])
+            print ('Sinopsis: ', película["synopsis"])
+            print ('Imagen representativa: ', película["link_image"])
+            print ('-------------------------------')
+            print ('Comentarios:')
+            print ('-------------------------------')
+            buscar_comentarios(película["title"])
+            print ('===============================\n')
+        return
+    else:
+        print ('\nAún no hay películas publicadas de', genero)
         return
 
 def agregar_película():
@@ -369,6 +399,7 @@ def buscar_comentarios(film_title):
         print ("Sin comentarios")
         print ('-------------------------------')
         return
+
 # _______________________________________________________________ Código _______________________________________________________________
 
 bucle = 1 # Lo usaremos para luego romper el bucle
@@ -403,7 +434,9 @@ while bucle == 1:
                     INopcion = input("\nIngrese algo para volver al menú: ")
                     continue
                 elif INopcion == '3':
-                    print('opcion3')
+                    buscar_película_género()
+                    INopcion = input("\nIngrese algo para volver al menú: ")
+                    continue
                 elif INopcion == '0':
                     continue
             elif INopcion == '0':

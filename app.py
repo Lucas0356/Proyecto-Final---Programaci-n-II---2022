@@ -161,6 +161,20 @@ def devolver_generos():
             )
     return jsonify(generos)
 
+@app.route("/films/gender/<string:gender_search>")
+def devolver_películas_género(gender_search):
+    datos_películas = cargar_películas()
+    películas = []
+    for película in datos_películas["films"]:
+        if gender_search == película["gender"]:
+                películas.append(
+                    película
+                )
+    if películas == []:
+        return Response('No hay películas cargadas con ese género', status=HTTPStatus.BAD_REQUEST)
+    else:
+        return jsonify(películas)
+
 @app.route("/films/<string:film_search>")
 def buscar_película(film_search):
     datos_películas = cargar_películas()
