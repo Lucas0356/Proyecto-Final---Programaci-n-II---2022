@@ -358,6 +358,13 @@ def editar_película():
             if op == "1":
                 new_year = comprobar_año()
                 película["year"] = new_year
+            print("\nEsta seguro que desea editar esta pelicula?\n")
+            print (película)
+            op = input("\nOpcion [1] Si [2] No : ")
+            if op == "1":
+                a = "FALTA AGREGAR FUNCION QUE LA AGREGA AL JSON"
+            if op == "2":
+                continue
             
 def editar_comentario():
     usuarios = cargar_usuarios()
@@ -536,7 +543,6 @@ while bucle == 1:
                 continue
             elif INopcion == '2':
                 editar_película()
-                print('[2] Editar Pelicula')
             elif INopcion == '3':
                 print('[3] Agregar Comentario')
             elif INopcion == '4':
