@@ -1,5 +1,5 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
-import requests, json, time, os
+import requests, json, time
 
 # _______________________________________________________________ Funciones _______________________________________________________________
 
@@ -57,7 +57,7 @@ def menu_genero():
     print('\n-------------------------------')
     print('       Escogedor de Genero       ')
     print('-------------------------------\n')
-    
+
 def menu_director():
     print('\n-------------------------------')
     print('      Escogedor de Director      ')
@@ -111,7 +111,6 @@ def iniciar_sesión():
                         else: 
                             print ("\nContraseña incorrecta")
                             continue
-        
 
 def registrar_usuario():
     while True:
