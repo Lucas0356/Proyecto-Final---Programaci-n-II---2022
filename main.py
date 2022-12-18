@@ -216,6 +216,7 @@ def agregar_película():
 def elegir_genero():
     menu_genero()
     generos = cargar_generos()
+    print("A continuación se mostrarán los generos disponibles ...\n")
     time.sleep(2)
     i = 0
     for genero in generos["genders"]:
@@ -244,6 +245,7 @@ def elegir_genero():
 def elegir_director():
     menu_director()
     directores = cargar_directores()
+    print("A continuacion se mostrarán los directores disponibles ...\n")
     time.sleep(2)
     i = 0
     for director in directores["directors"]:
@@ -294,7 +296,9 @@ while bucle == 1:
             continue
         INopcion = menu_usuario(usuarioIN)
         if INopcion == '1':
-            print('[1] Agregar Pelicula')
+            time.sleep(0.2)
+            print('\n[1] Usted escogio, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+            print('ya cargados en el sistema.')
             agregar_película()
         if INopcion == '2':
             print('[2] Editar Pelicula')
