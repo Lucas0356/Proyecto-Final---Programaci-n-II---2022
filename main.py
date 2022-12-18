@@ -151,6 +151,12 @@ def modificar_json_usuarios(usuarios_actualizado):
     usuarios_json.close()
     return 
 
+def modificar_json_películas(películas_actualizado):
+    películas_json = open ("datos_json/películas.json" , "w" , encoding='utf-8')
+    json.dump(películas_actualizado, películas_json, indent = 4)
+    películas_json.close()
+    return
+
 def buscar_película_nombre():
     system("cls") #Limpia la terminal
     print('\n--------------------------------')
@@ -198,9 +204,10 @@ def agregar_película():
         print (new_movie)
         op = input("\nOpcion [1] Si [2] No : ")
         if op == "1":
-            peliculas["films"].append(new_movie)
+            películas = requests.post('http://127.0.0.1:5000/films',json=new_movie)
+            modificar_json_películas(películas.json())
             print (peliculas)
-            print("\nUsted añadio correctamente su pelicula.")
+            print("\nUsted añadio correctamente su pelicula!")
             comprobador = False
         if op == "2":
             continue
@@ -208,9 +215,12 @@ def agregar_película():
 def elegir_genero():
     menu_genero()
     generos = cargar_generos()
+    print("A continuación se mostrarán los generos disponibles ...\n")
+    time.sleep(2)
     i = 0
     for genero in generos["genders"]:
         print ('[' + str(i) + '] ' + str(genero["gender"]))
+        time.sleep(0.5)
         i = i + 1
     opcion_genero = input("\nIngrese el genero que desea: ")
     if opcion_genero == '0':
@@ -234,9 +244,12 @@ def elegir_genero():
 def elegir_director():
     menu_director()
     directores = cargar_directores()
+    print("A continuacion se mostrarán los directores disponibles ...\n")
+    time.sleep(2)
     i = 0
     for director in directores["directors"]:
         print ('[' + str(i) + '] ' + str(director["director"]))
+        time.sleep(0.5)
         i = i + 1
     opcion_genero = input("\nIngrese el director que desea: ")
     if opcion_genero == '0':
@@ -282,7 +295,9 @@ while bucle == 1:
             continue
         INopcion = menu_usuario(usuarioIN)
         if INopcion == '1':
-            print('[1] Agregar Pelicula')
+            time.sleep(0.2)
+            print('\n[1] Usted escogio, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+            print('ya cargados en el sistema.')
             agregar_película()
         if INopcion == '2':
             print('[2] Editar Pelicula')
