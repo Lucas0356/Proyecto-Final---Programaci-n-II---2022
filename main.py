@@ -359,7 +359,13 @@ def editar_película():
                 new_year = comprobar_año()
                 película["year"] = new_year
             
-            
+def editar_comentario():
+    usuarios = cargar_usuarios()
+    for usuario in usuarios["users"]:
+        if usuario["username"] == usuarioIN:
+            print("\nQue comentario desea modificar?\n")
+            for comentario in usuarios["comments"]:
+                print(comentario)
 
 def elegir_película_a_editar():
     print("\nA continuación se mostrarán las peliculas disponibles ...\n")
@@ -389,6 +395,12 @@ def elegir_película_a_editar():
         elif opcion_película == '6':
             película = películas["films"][int(opcion_película)]["title"]
         elif opcion_película == '7':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '8':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '9':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '10':
             película = películas["films"][int(opcion_película)]["title"]
         else:
             print("\nError! Debe ingresar el numero que corresponda segun el genero que desea.")
@@ -509,7 +521,7 @@ def buscar_comentarios(film_title):
 
 bucle = 1 # Lo usaremos para luego romper el bucle
 while bucle == 1:
-    editar_película()
+    # editar_comentario()
     INopcion = menu_principal()
     if INopcion == '1':
         usuarioIN = iniciar_sesión()
@@ -526,6 +538,7 @@ while bucle == 1:
             elif INopcion == '3':
                 print('[3] Agregar Comentario')
             elif INopcion == '4':
+                editar_comentario()
                 print('[4] Editar Comentario')
             elif INopcion == '5':
                 INopcion = menu_buscar()
