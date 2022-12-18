@@ -364,8 +364,11 @@ def editar_comentario():
     for usuario in usuarios["users"]:
         if usuario["username"] == usuarioIN:
             print("\nQue comentario desea modificar?\n")
-            for comentario in usuarios["comments"]:
-                print(comentario)
+            i = 0
+            for comentario in usuario["comments"]:
+                print("[" + str(i) + "] " + comentario + " - " + str(usuario["comments"][comentario]))
+                i = i + 1
+
 
 def elegir_película_a_editar():
     print("\nA continuación se mostrarán las peliculas disponibles ...\n")
@@ -521,7 +524,6 @@ def buscar_comentarios(film_title):
 
 bucle = 1 # Lo usaremos para luego romper el bucle
 while bucle == 1:
-    # editar_comentario()
     INopcion = menu_principal()
     if INopcion == '1':
         usuarioIN = iniciar_sesión()
