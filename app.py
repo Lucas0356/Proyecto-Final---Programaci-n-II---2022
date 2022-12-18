@@ -104,6 +104,26 @@ def devolver_películas():
         )
     return jsonify(películas)
 
+@app.route("/films", methods=["POST"])
+def crear_película():
+    datos_películas = cargar_películas()
+    datos_cliente = request.get_json()
+    print (datos_cliente["title"])
+    existe = False
+    if "title" in datos_cliente and "year" in datos_cliente and "director" in datos_cliente and "gender" in datos_cliente and "synopsis" in datos_cliente and "link_image" in datos_cliente:
+        for película in datos_películas["films"]:
+            print (película["title"])
+            print (datos_cliente["title"])
+            if datos_cliente["title"] == película["title"]:
+                existe = True
+    if existe == False:
+        datos_películas["films"].append(
+        datos_cliente
+        )
+        return jsonify(datos_películas)
+    elif existe == True:
+        return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
+
 @app.route("/films/directors")
 def devolver_directores():
     datos_películas = cargar_películas()

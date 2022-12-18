@@ -235,18 +235,16 @@ def agregar_película():
     while comprobador:
         genero = elegir_genero()
         director = elegir_director()
-        peliculas = cargar_películas()
-        new_movie = {}
         title_movie = input("Ingrese el titulo de la pelicula que desea añadir: ")
         year_movie = input("Ingrese el año de la pelicula que desea añadir: ")
         synopsis_movie = input("Ingrese la sinopsis de la pelicula que desea añadir: ")
         img_movie = input("Ingrese la URL a la portada de la pelicula que desea añadir: ")
-        new_movie = {
+        new_movie ={
             "title": title_movie,
             "year": year_movie,
             "director": director,
             "gender": genero,
-            "sinopsis": synopsis_movie,
+            "synopsis": synopsis_movie,
             "link_image": img_movie
         }
         print("\nEsta seguro que desea añadir esta pelicula?\n")
@@ -255,7 +253,6 @@ def agregar_película():
         if op == "1":
             películas = requests.post('http://127.0.0.1:5000/films',json=new_movie)
             modificar_json_películas(películas.json())
-            print (peliculas)
             print("\nUsted añadio correctamente su pelicula!")
             comprobador = False
         if op == "2":
