@@ -290,6 +290,9 @@ def comprobar_año():
         print("Año no válido")
 
 def agregar_película():
+    time.sleep(0.2)
+    print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
+    print('ya cargados en el sistema.')
     comprobador = True
     while comprobador:
         genero = elegir_genero()
@@ -301,7 +304,7 @@ def agregar_película():
         new_movie ={
             "title": title_movie.capitalize(),
             "year": year_movie,
-            "director": director.capitalize(),
+            "director": director,
             "gender": genero,
             "synopsis": synopsis_movie.capitalize(),
             "link_image": img_movie
@@ -328,23 +331,27 @@ def elegir_genero():
         print ('[' + str(i) + '] ' + str(genero["gender"]))
         time.sleep(0.5)
         i = i + 1
-    opcion_genero = input("\nIngrese el genero que desea: ")
-    if opcion_genero == '0':
-        genero = "Accion"
-    elif opcion_genero == '1':
-        genero = "Aventura"
-    elif opcion_genero == '2':
-        genero = "Ciencia Ficcion"
-    elif opcion_genero == '3':
-        genero = "Comedia"
-    elif opcion_genero == '4':
-        genero = "Drama"
-    elif opcion_genero == '5':
-        genero = "Fantasia"
-    elif opcion_genero == '6':
-        genero = "Suspenso"
-    elif opcion_genero == '7':
-        genero = "Terror"
+    genero = "vacío"
+    while genero == "vacío":
+        opcion_genero = input("\nIngrese el genero que desea: ")
+        if opcion_genero == '0':
+            genero = "Accion"
+        elif opcion_genero == '1':
+            genero = "Aventura"
+        elif opcion_genero == '2':
+            genero = "Ciencia Ficcion"
+        elif opcion_genero == '3':
+            genero = "Comedia"
+        elif opcion_genero == '4':
+            genero = "Drama"
+        elif opcion_genero == '5':
+            genero = "Fantasia"
+        elif opcion_genero == '6':
+            genero = "Suspenso"
+        elif opcion_genero == '7':
+            genero = "Terror"
+        else:
+            print("\nError! Debe ingresar el numero que corresponda segun el genero que desea.")
     return genero
 
 def elegir_director():
@@ -357,36 +364,40 @@ def elegir_director():
         print ('[' + str(i) + '] ' + str(director["director"]))
         time.sleep(0.5)
         i = i + 1
-    opcion_genero = input("\nIngrese el director que desea: ")
-    if opcion_genero == '0':
-        director = "Alfonso Cuaron"
-    elif opcion_genero == '1':
-        director = "Clint Eastwood"
-    elif opcion_genero == '2':
-        director = "Francis Ford Coppola"
-    elif opcion_genero == '3':
-        director = "Gore Verbinski"
-    elif opcion_genero == '4':
-        director = "Goro Taniguchi"
-    elif opcion_genero == '5':
-        director = "James Cameron"
-    elif opcion_genero == '6':
-        director = "Jeff Fowler"
-    elif opcion_genero == '7':
-        director = "Quentin Tarantino"
-    elif opcion_genero == '8':
-        director = "Robert Zemeckis"
-    elif opcion_genero == '9':
-        director = "Sam Raimi"
-    elif opcion_genero == '10':
-        director = "Steven Spielberg"
-    elif opcion_genero == '11':
-        director = "Tetsuro Kodama"
-    elif opcion_genero == '12':
-        director = "Tim Burton"
-    elif opcion_genero == '13':
-        director = "Woody Allen"
-    
+    director = "vacío"
+    while director == "vacío":
+        opcion_genero = input("\nIngrese el director que desea: ")
+        if opcion_genero == '0':
+            director = "Alfonso Cuaron"
+        elif opcion_genero == '1':
+            director = "Clint Eastwood"
+        elif opcion_genero == '2':
+            director = "Francis Ford Coppola"
+        elif opcion_genero == '3':
+            director = "Gore Verbinski"
+        elif opcion_genero == '4':
+            director = "Goro Taniguchi"
+        elif opcion_genero == '5':
+            director = "James Cameron"
+        elif opcion_genero == '6':
+            director = "Jeff Fowler"
+        elif opcion_genero == '7':
+            director = "Quentin Tarantino"
+        elif opcion_genero == '8':
+            director = "Robert Zemeckis"
+        elif opcion_genero == '9':
+            director = "Sam Raimi"
+        elif opcion_genero == '10':
+            director = "Steven Spielberg"
+        elif opcion_genero == '11':
+            director = "Tetsuro Kodama"
+        elif opcion_genero == '12':
+            director = "Tim Burton"
+        elif opcion_genero == '13':
+            director = "Woody Allen"
+        else:
+            print("Error! Debe ingresar el numero que corresponda segun el director que desea.")
+        
     return director
 
 def ultimas_diez():
@@ -433,9 +444,6 @@ while bucle == 1:
         while True: 
             INopcion = menu_usuario(usuarioIN)
             if INopcion == '1':
-                time.sleep(0.2)
-                print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
-                print('ya cargados en el sistema.')
                 agregar_película()
                 continue
             elif INopcion == '2':
