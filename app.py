@@ -186,8 +186,11 @@ def ver_comentarios(film_search):
                     "username": usuario["username"],
                     "comment": usuario["comments"][film_search]}
                 )
-                return jsonify(comentarios)
-    return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
+    if comentarios == []:
+        return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
+    else: 
+        return jsonify(comentarios)
+
 
 @app.route("/films/<string:film_search>", methods=["DELETE"])
 def borrar_película(film_search):

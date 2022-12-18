@@ -391,6 +391,8 @@ while bucle == 1:
                 break
     elif INopcion == '2':
         ultimas_diez()
+        INopcion = input("\nIngrese algo para volver al menú: ")
+        continue
     elif INopcion == '3':
         nuevo_usuario = registrar_usuario()
         if nuevo_usuario == None:
