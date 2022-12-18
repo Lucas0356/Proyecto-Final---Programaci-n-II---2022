@@ -87,6 +87,11 @@ def menu_director():
     print('      Escogedor de Director      ')
     print('-------------------------------\n')
 
+def menu_editor():
+    print('\n-------------------------------')
+    print('       Editor de Peliculas       ')
+    print('-------------------------------\n')
+
 def cargar_usuarios():
     with open('datos_json/usuarios.json') as archivo:
         datos_json = json.load(archivo)
@@ -271,7 +276,7 @@ def buscar_película_género():
 
 def comprobar_url():
     while True:
-        url_imagen = input("Ingrese la URL a la portada de la pelicula que desea añadir: ")
+        url_imagen = input("Ingrese la URL a la portada de la pelicula: ")
         url = re.compile("^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$")
         if url.search(url_imagen): # Comprobemos que sea una URL válida
             print("URL válida")
@@ -283,7 +288,7 @@ def comprobar_url():
 
 def comprobar_año():
     while True:
-        año = input("Ingrese el año de la pelicula que desea añadir: ")
+        año = input("Ingrese el año de la pelicula: ")
         if año.isdigit():
             if int(año) >= 1900 and int(año) <= 2023:
                 return (año)
@@ -320,6 +325,74 @@ def agregar_película():
         if op == "2":
             return
         continue
+
+def editar_película():
+    menu_editor()
+    time.sleep(0.2)
+    pelicula = elegir_película_a_editar()
+    películas = cargar_películas()
+    for película in películas["films"]:
+        if película["title"] == pelicula:
+            print("\nDesea editar el director? [Director Actual: " + str(película["director"] + "] "))
+            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if op == "1":
+                new_director = elegir_director()
+                película["director"] = new_director
+            print("\nDesea editar el genero? [Genero Actual: " + str(película["gender"] + "] "))
+            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if op == "1":
+                new_gender = elegir_genero()
+                película["gender"] = new_gender
+            print("\nDesea editar la URL a la portada? [URL Actual: " + str(película["link_image"] + "] "))
+            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if op == "1":
+                new_url = comprobar_url()
+                película["link_image"] = new_url
+            print("\nDesea editar la sinopsis? [Sinopsis Actual: " + str(película["synopsis"] + "] "))
+            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if op == "1":
+                new_synopsis = input("Ingrese la nueva sinopsis: ")
+                película["synopsis"] = new_synopsis
+            print("\nDesea editar el año? [Año Actual: " + str(película["year"] + "] "))
+            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if op == "1":
+                new_year = comprobar_año()
+                película["year"] = new_year
+            
+            
+
+def elegir_película_a_editar():
+    print("\nA continuación se mostrarán las peliculas disponibles ...\n")
+    print("[Recuerde que el genero y el director, solo se pueden elegir segun los ya cargados en el sistema.]\n")
+    películas = cargar_películas()
+    i = 0
+    time.sleep(2)
+    for película in películas["films"]:
+        print ('[' + str(i) + '] ' + str(película["title"]))
+        i = i + 1
+        time.sleep(0.5)
+    película = "vacío"
+    while película == "vacío":
+        opcion_película = input("\nQue pelicula desea editar? ")
+        if opcion_película == '0':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '1':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '2':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '3':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '4':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '5':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '6':
+            película = películas["films"][int(opcion_película)]["title"]
+        elif opcion_película == '7':
+            película = películas["films"][int(opcion_película)]["title"]
+        else:
+            print("\nError! Debe ingresar el numero que corresponda segun el genero que desea.")
+    return película
 
 def elegir_genero():
     menu_genero()
@@ -436,6 +509,7 @@ def buscar_comentarios(film_title):
 
 bucle = 1 # Lo usaremos para luego romper el bucle
 while bucle == 1:
+    editar_película()
     INopcion = menu_principal()
     if INopcion == '1':
         usuarioIN = iniciar_sesión()
@@ -447,6 +521,7 @@ while bucle == 1:
                 agregar_película()
                 continue
             elif INopcion == '2':
+                editar_película()
                 print('[2] Editar Pelicula')
             elif INopcion == '3':
                 print('[3] Agregar Comentario')
