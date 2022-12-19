@@ -517,10 +517,10 @@ def eliminar_comentario(usuario_logueado):
                 comentarioss.append({
                     "username": comentario["username"],
                     "film": película,
-                    "comment": comentario["comments"]}
+                    "comment": comentario["comment"]}
                 )
-    if comentarios == []:
-        print("\nNo existe ningún comentario para esa película")
+    if comentarioss == []:
+        print("\nNo existe ningún comentario en esa película")
         return 
     else:
         print("\nEstá seguro que desea borrar su comentario '" + str(comentarioss[0]["comment"]) + "' en la película '" + str(comentarioss[0]["film"]) + "'?")
@@ -528,7 +528,7 @@ def eliminar_comentario(usuario_logueado):
         if opcion == "1":
             nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments', json= {"username" : usuario_logueado}).json()
             system("cls") #Limpia la terminal
-            print("Se eliminó su comentario " + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
+            print("Se eliminó su comentario " + str(comentarioss[0]["comment"]) +" de la película '" + str(comentarioss[0]["film"]) + "' correctamente")
             modificar_json_comentarios(nuevo_json)
             time.sleep(2)
             return
