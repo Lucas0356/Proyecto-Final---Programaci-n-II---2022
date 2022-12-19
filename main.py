@@ -350,45 +350,46 @@ def editar_película():
     menu_editor()
     time.sleep(0.2)
     película_user = elegir_película_a_editar()
-    películas = cargar_películas()
-    nuevo_json = [] # Aquí se guardara el nuevo json modificado
-    for película in películas["films"]:
-        if película["title"] != película_user:
-            nuevo_json.append(película)
-        elif película["title"] == película_user:
-            print("\nDesea editar el director? [Director Actual: " + str(película["director"] + "] "))
-            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if op == "1":
-                new_director = elegir_director()
-                película["director"] = new_director
-            print("\nDesea editar el genero? [Genero Actual: " + str(película["gender"] + "] "))
-            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if op == "1":
-                new_gender = elegir_genero()
-                película["gender"] = new_gender
-            print("\nDesea editar la URL a la portada? [URL Actual: " + str(película["link_image"] + "] "))
-            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if op == "1":
-                new_url = comprobar_url()
-                película["link_image"] = new_url
-            print("\nDesea editar la sinopsis? [Sinopsis Actual: " + str(película["synopsis"] + "] "))
-            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if op == "1":
-                new_synopsis = input("Ingrese la nueva sinopsis: ")
-                película["synopsis"] = new_synopsis
-            print("\nDesea editar el año? [Año Actual: " + str(película["year"] + "] "))
-            op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if op == "1":
-                new_year = comprobar_año()
-                película["year"] = new_year
-            print("\nEsta seguro que desea editar esta pelicula?\n")
-            print (película)
-            op = input("\nOpcion [1] Si [2] No : ")
-            if op == "1":
-                nuevo_json.append(película) #Añadimos la película modificada al resto
-                modificar_json_películas(nuevo_json)
-            if op == "2":
-                continue
+    película_lista = requests.get('http://127.0.0.1:5000/films/'+película_user).json()
+    película = película_lista[0]
+    nueva_película = {}
+    print("\nDesea editar el director? [Director Actual: " + str(película["director"]) + "] ")
+    op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if op == "1":
+        new_director = elegir_director()
+        nueva_película["director"] = new_director
+    print("\nDesea editar el genero? [Genero Actual: " + str(película["gender"] + "] "))
+    op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if op == "1":
+        new_gender = elegir_genero()
+        nueva_película["gender"] = new_gender
+    print("\nDesea editar la URL a la portada? [URL Actual: " + str(película["link_image"] + "] "))
+    op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if op == "1":
+        new_url = comprobar_url()
+        nueva_película["link_image"] = new_url
+    print("\nDesea editar la sinopsis? [Sinopsis Actual: " + str(película["synopsis"] + "] "))
+    op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if op == "1":
+        new_synopsis = input("Ingrese la nueva sinopsis: ")
+        nueva_película["synopsis"] = new_synopsis
+    print("\nDesea editar el año? [Año Actual: " + str(película["year"] + "] "))
+    op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if op == "1":
+        new_year = comprobar_año()
+        nueva_película["year"] = new_year
+    print("\nEsta seguro que desea editar esta pelicula?\n")
+    print (nueva_película)
+    op = input("\nOpcion [1] Si [2] No : ")
+    if op == "1":
+        películas_mod = requests.put('http://127.0.0.1:5000/films/'+película_user, json=nueva_película).json()
+        modificar_json_películas(películas_mod)
+        system("cls") #Limpia la terminal
+        print('Se modificó '+película_user+' correctamente')
+        modificar_json_películas(películas_mod)
+        time.sleep(2)
+    if op == "2":
+        return
 
 def eliminar_película(usuario_logueado):
     system("cls") #Limpia la terminal
