@@ -233,4 +233,16 @@ def mostrar_ultimas10():
             break
     return jsonify(películas)
 
+
+@app.route("/films/<string:film_search>", methods=["PUT"])
+def editar_pelicula(film_search):
+    datos_peliculas = cargar_películas()
+    datos_editados = request.get_json()
+    for pelicula in datos_peliculas["films"]:
+        if pelicula["title"] == film_search:
+            a = datos_peliculas["films"].index(pelicula)
+            datos_peliculas["films"][a]["year"] = datos_editados["year"]
+            return jsonify(datos_peliculas)
+    return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+
 app.run(debug=True)
