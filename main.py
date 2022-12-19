@@ -117,6 +117,11 @@ def cargar_películas():
         películas = json.load(archivo_películass)
         return películas
     
+def cargar_comentarios():
+    with open('datos_json/comentarios.json') as archivo_comentarioss:
+        comentarios = json.load(archivo_comentarioss)
+        return comentarios
+    
 # ______________________ Iniciar Sesion/Registro _____________________ #
 
 def iniciar_sesión():
