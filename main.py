@@ -404,8 +404,10 @@ def editar_comentario(usuario_logueado):
         })
         contador = contador + 1
         time.sleep(0.5)
+    if lista_comentarios == []:
+        print ("\nAún no hay comentarios")
     while True:
-        opcion_comentario = input("\n¿Qué comentario desea modificar?: ")
+        opcion_comentario = input("\nElija una opción: ")
         if opcion_comentario.isdigit() == True:
             if int(opcion_comentario) <= len(comentarios_usuario) and int(opcion_comentario) >= 0:
                 if int(opcion_comentario) == 0:
