@@ -390,21 +390,31 @@ def editar_película():
             if op == "2":
                 continue
 
-def eliminar_película():
+def eliminar_película(usuario_logueado):
     system("cls") #Limpia la terminal
     print('\nUsted escogió, "Eliminar película"')
     película_eliminar = elegir_película_a_eliminar()
-    print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
-    opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-    if opcion == "1":
-        nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+    comentarios_película = requests.get('http://127.0.0.1:5000/films/'+película_eliminar+'/comments').json()
+    if len(comentarios_película) > 1:
         system("cls") #Limpia la terminal
-        print('Se eliminó '+película_eliminar+' correctamente')
-        modificar_json_películas(nuevo_json)
+        print("No puedes borrar una película con comentarios de otras personas")
         time.sleep(2)
         return
     else:
-        return
+        for comentario in comentarios_película.json():
+            if comentario["username"] == usuario_logueado:
+                print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
+                opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+                if opcion == "1":
+                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+                    system("cls") #Limpia la terminal
+                    print('Se eliminó '+película_eliminar+' correctamente')
+                    modificar_json_películas(nuevo_json)
+                    time.sleep(2)
+                    return
+                else:
+                    return
+
 # ________________________ Agregar/Editar Comentario _________________________ #
 
 def agregar_comentario(usuario_logueado):
@@ -678,23 +688,20 @@ while bucle == 1:
         usuarioIN = iniciar_sesión()
         if usuarioIN == None:
             continue
-        while True: 
+        while True:
             INopcion = menu_usuario(usuarioIN) #Nombre de usuario
             if INopcion == '1': # Agregar película
                 agregar_película()
                 continue
             elif INopcion == '2': # Editar película
                 editar_película()
-            elif INopcion == '3': # Borrar película
-                eliminar_película()
-                a = input ("a")
-            elif INopcion == '4': # Agregar comentario
+            elif INopcion == '3': # Agregar comentario
                 agregar_comentario(usuarioIN)
-            elif INopcion == '5': # Editar comentario
+                print('[3] Agregar Comentario')
+            elif INopcion == '4': # Editar comentario
                 editar_comentario(usuarioIN)
-            elif INopcion == '6':
-                eliminar_comentario(usuarioIN)
-            elif INopcion == '7': # Menú buscar
+                print('[4] Editar Comentario')
+            elif INopcion == '5': # Menú buscar
                 INopcion = menu_buscar()
                 if INopcion == '1': # Buscar por nombre
                     buscar_película_nombre()
@@ -710,6 +717,9 @@ while bucle == 1:
                     continue
                 elif INopcion == '0': # Salir
                     continue
+            elif INopcion == '6': # Borrar película
+                eliminar_película(usuarioIN)
+                a = input ("a")
             elif INopcion == '0': # Salir
                 break
     elif INopcion == '2': # Modo público
@@ -726,3 +736,4 @@ while bucle == 1:
     elif INopcion == '0': # Salir
         exit
     bucle = 0 # Para romper el bucle
+
