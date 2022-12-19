@@ -15,6 +15,12 @@ def cargar_usuarios():
         datos_json = json.load(archivo)
         return datos_json
 
+def cargar_comentarios():
+    with open('datos_json/comentarios.json') as archivo:
+        datos_json = json.load(archivo)
+        return datos_json
+
+
 # _______________________________________________________________ Código __________________________________________________________________ #
 
 app = Flask(__name__)
@@ -87,7 +93,6 @@ def crear_usuario():
             "username": datos_cliente["username"],
             "id":id_nuevo_usuario,
             "password": datos_cliente["password"],
-            "comments": {}
         }
         )
         return jsonify(datos_usuarios)
@@ -183,17 +188,13 @@ def buscar_película(film_search):
 
 # ____________________________ Comentarios ____________________________ #
 
-@app.route("/films/<string:film_search>/comments")
+@app.route("/films/<string:film_search>/comments") # Buscar todos los comentarios de una película
 def ver_comentarios(film_search):
-    datos_usuarios = cargar_usuarios()
+    datos_comentarios = cargar_comentarios()
     comentarios = []
-    for usuario in datos_usuarios["users"]:
-        for comentario_película in usuario["comments"]:
-            if film_search == comentario_película:
-                comentarios.append({
-                    "username": usuario["username"],
-                    "comment": usuario["comments"][film_search]}
-                )
+    for comentario in datos_comentarios["comments"]:
+        if comentario["film"] == film_search:
+                comentarios.append(comentario)
     if comentarios == []:
         return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
     else: 
