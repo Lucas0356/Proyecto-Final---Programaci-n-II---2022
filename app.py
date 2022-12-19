@@ -200,6 +200,27 @@ def buscar_comentarios_usuario(username):
     else:
         return jsonify(datos_comentarios)
 
+@app.route("/users/<string:username>/comments", methods=["POST"]) # Agregar comments
+def crear_comentario():
+    datos_comentarios = cargar_comentarios()
+    datos_cliente = request.get_json()
+    print (datos_cliente["title"])
+    existe = False
+    if "film" in datos_cliente and "username" in datos_cliente and "comment" in datos_cliente:
+        for película in datos_películas["films"]:
+            print (película["title"])
+            print (datos_cliente["title"])
+            if datos_cliente["title"] == película["title"]:
+                existe = True
+    if existe == False:
+        datos_películas["films"].append(
+        datos_cliente
+        )
+        return jsonify(datos_películas)
+    elif existe == True:
+        return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
+
+
 # @app.route("/users/<id>/comments", methods=["POST"]) # Agregar comentarios
 # def modificar_comentario(id):
 #     id_int = int(id)
