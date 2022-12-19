@@ -126,13 +126,22 @@ def crear_película():
 @app.route("/films/directors")
 def devolver_directores():
     datos_películas = cargar_películas()
-    directores = []
+    lista_directores = []
+    directores_json = {"directors": []}
     for película in datos_películas["films"]:
-        if película["director"] not in directores:
-            directores.append({
-                "director": película["director"]}
+        coincidencias = 0
+        if lista_directores == []:
+            lista_directores.append(película["director"])
+        else:
+            for director in lista_directores:
+                if película["director"] == director:
+                    coincidencias = coincidencias = + 1
+        if coincidencias == 0:
+            lista_directores.append(película["director"])
+            directores_json["directors"].append({
+                "name": película["director"]}
             )
-    return jsonify(directores)
+    return jsonify(directores_json)
 
 @app.route("/films/directors/<string:director_search>")
 def devolver_películas_director(director_search):
