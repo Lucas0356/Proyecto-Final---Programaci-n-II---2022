@@ -240,7 +240,18 @@ def editar_pelicula(film_search):
     datos_editados = request.get_json()
     for pelicula in datos_peliculas["films"]:
         if pelicula["title"] == film_search:
-            pelicula["year"] = datos_editados["year"]
+            if "title" in datos_editados:
+                pelicula["title"] = datos_editados["title"]
+            if "year" in datos_editados:
+                pelicula["year"] = datos_editados["year"]
+            if "link_image" in datos_editados:
+                pelicula["link image"] = datos_editados["link_image"]
+            if "gender" in datos_editados:
+                pelicula["gender"] = datos_editados["gender"]
+            if "synopsis" in datos_editados:
+                pelicula["synopsis"] = datos_editados["synopsis"]
+            if "director" in datos_editados:
+                pelicula["director"] = datos_editados["director"]
             return jsonify(datos_peliculas)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
