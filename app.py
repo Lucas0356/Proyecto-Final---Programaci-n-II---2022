@@ -229,6 +229,7 @@ def ver_comentarios(film_search):
 
 @app.route("/users/<id>/comments", methods=["POST"]) # Editar comentarios
 def modificar_comentario(id):
+    
     id_int = int(id)
     datos_usuarios = cargar_usuarios()
     datos_cliente = request.get_json()
@@ -245,7 +246,27 @@ def modificar_comentario(id):
                     return jsonify(datos_usuarios)
         contador = 0 + 1
     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
-
+"""
+@app.route("/films/<string:film_search>/comments", methods=["DELETE"])
+def borrar_comentario(film_search):
+    datos_usuarios = cargar_usuarios()
+    comentarios = []
+    user = request.get_json()
+    for usuario in datos_usuarios["users"]:
+        for comentario_película in usuario["comments"]:
+            if film_search == comentario_película:
+                comentarios.append({
+                    "username": usuario["username"],
+                    "comment": usuario["comments"][film_search]}
+                )
+    if comentarios == []:
+        return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
+    else:
+        for coment in comentarios:
+            if coment["username"] == user["username"]:
+                comentarios.remove(coment)
+        return jsonify(comentarios)
+"""
 
 # ___________________________ ABM Peliculas ___________________________ #
 
