@@ -29,7 +29,9 @@ def devolver_usuarios():
     usuarios = []
     for usuario in datos_usuarios["users"]:
         usuarios.append({
-            "username": usuario["username"]}
+            "username": usuario["username"],
+            "id": usuario["id"],
+            "comments": usuario["comments"]}
         )
     return jsonify(usuarios)
 
@@ -43,7 +45,6 @@ def devolver_usuario(id):
             usuario_info={
                 "username": usuario["username"],
                 "id": usuario["id"],
-                "contributions": usuario["contributions"],
                 "comments": usuario["comments"]
                 }
             return jsonify(usuario_info)
@@ -67,7 +68,6 @@ def buscar_usuario(username_search):
             usuario_info={
                 "username": usuario["username"],
                 "id": usuario["id"],
-                "contributions": usuario["contributions"],
                 "comments": usuario["comments"]
                 }
             return jsonify(usuario_info)
@@ -83,7 +83,6 @@ def crear_usuario():
             "username": datos_cliente["username"],
             "id":id_nuevo_usuario,
             "password": datos_cliente["password"],
-            "contributions": 0,
             "comments": {}
         }
         )
