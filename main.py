@@ -736,7 +736,7 @@ while bucle == 1:
             elif INopcion == '5': # Editar comentario
                 editar_comentario(usuarioIN)
             elif INopcion == '6': # Borrar comentario
-                editar_comentario(usuarioIN)
+                eliminar_comentario(usuarioIN)
             elif INopcion == '7': # Menú buscar
                 INopcion = menu_buscar()
                 if INopcion == '1': # Buscar por nombre
