@@ -39,11 +39,12 @@ def menu_usuario(usuario):
         print('[3] Agregar Comentario')
         print('[4] Editar Comentario')
         print('[5] Buscar')
+        print('[6] Eliminar película')
         print('[0] Salir')
         print('-------------------------------')
         INopcion = input("\nIngrese una opción: ")
         if INopcion.isdigit() == True:
-            if int(INopcion) >= 0 and int(INopcion) <= 5:
+            if int(INopcion) >= 0 and int(INopcion) <= 6:
                 return (INopcion)
             else:
                 print("\nIngrese una opción válida")
@@ -310,7 +311,7 @@ def comprobar_año():
                 return (año)
         print("Año no válido")
 
-# _____________________ Agregar/Editar Pelicula ______________________ #
+# _____________________ Agregar/Editar/Eliminar Pelicula ______________________ #
 
 def agregar_película():
     time.sleep(0.2)
@@ -387,6 +388,9 @@ def editar_película():
                 modificar_json_películas(nuevo_json)
             if op == "2":
                 continue
+
+def eliminar_película():
+    print("eliminar película")
 
 # ________________________ Agregar/Editar Comentario _________________________ #
 
@@ -664,6 +668,9 @@ while bucle == 1:
                     continue
                 elif INopcion == '0': # Salir
                     continue
+            elif INopcion == '6': # Borrar película
+                eliminar_película()
+                a = input ("a")
             elif INopcion == '0': # Salir
                 break
     elif INopcion == '2': # Modo público
