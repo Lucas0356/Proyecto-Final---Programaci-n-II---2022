@@ -234,7 +234,7 @@ def mostrar_ultimas10():
     return jsonify(películas)
 
 
-@app.route("/films/<string:film_search>", methods=["PUT"])
+@app.route("/films/<string:film_search>", methods=["PUT"]) # Modificar película
 def editar_pelicula(film_search):
     datos_peliculas = cargar_películas()
     datos_editados = request.get_json()
