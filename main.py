@@ -432,6 +432,7 @@ def editar_comentario(usuario_logueado):
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
     usuarios_json = cargar_usuarios()
     lista_comentarios = []
+    lista_películas = []
     contador = 1
     print ('\n[0] Para salir')
     for película in comentarios_usuario:
@@ -439,6 +440,7 @@ def editar_comentario(usuario_logueado):
         lista_comentarios.append({
             película: comentarios_usuario[película]
         })
+        lista_películas.append(película)
         contador = contador + 1
         time.sleep(0.5)
     if lista_comentarios == []:
@@ -453,8 +455,10 @@ def editar_comentario(usuario_logueado):
                     nuevo_comentario = input("Ingrese su comentario modificado: ")
                     for usuario in usuarios_json["users"]:
                         if usuario["username"] == usuario_logueado:
-                            usuario["comments"][película] = nuevo_comentario
-                    modificar_json_usuarios(usuarios_json)
+                            pelicula_nombre = lista_películas[int(opcion_comentario)-1] 
+                            comentarios_modificado = {pelicula_nombre: nuevo_comentario}
+                            datos_actualizados = requests.post('http://127.0.0.1:5000/users/'+str(id_user)+'/comments', json=comentarios_modificado).json()
+                    modificar_json_usuarios(datos_actualizados)
                     system("cls") #Limpia la terminal
                     print("¡Comentario modificado con éxito!")
                     time.sleep(2)

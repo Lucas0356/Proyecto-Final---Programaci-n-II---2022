@@ -199,7 +199,35 @@ def ver_comentarios(film_search):
     else: 
         return jsonify(comentarios)
 
-@app.route("/users/<id>/comments", methods=["PUT"]) # Editar comentarios
+# @app.route("/users/<id>/comments", methods=["POST"]) # Agregar comentarios
+# def modificar_comentario(id):
+#     id_int = int(id)
+#     datos_usuarios = cargar_usuarios()
+#     datos_cliente = request.get_json()
+#     key_datos_cliente = []
+#     contador = 0
+#     comentarios = {}
+#     for dato in datos_cliente:
+#         if contador == 0:
+#             key_datos_cliente.append(dato)
+#     for usuario in datos_usuarios["users"]:
+#         if id_int == usuario["id"]:
+#             for pelicula_comentario in usuario["comments"]:
+#                 coincidencias = 0
+#                 if pelicula_comentario == key_datos_cliente[0]:
+#                     coincidencias = coincidencias + 1
+#                 else:
+#                     print("printa")
+#             if coincidencias == 0:
+#                 datos_usuarios["users"][contador]["comments"][pelicula_comentario] = datos_cliente[key_datos_cliente[0]]
+#                 return jsonify(datos_usuarios)
+#         contador = 0 + 1
+#     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
+
+
+
+
+@app.route("/users/<id>/comments", methods=["POST"]) # Editar comentarios
 def modificar_comentario(id):
     id_int = int(id)
     datos_usuarios = cargar_usuarios()
@@ -212,13 +240,12 @@ def modificar_comentario(id):
     for usuario in datos_usuarios["users"]:
         if id_int == usuario["id"]:
             for comentario in usuario["comments"]:
-                print (key_datos_cliente[0])
-                print (comentario)
                 if comentario == key_datos_cliente[0]:
                     datos_usuarios["users"][contador]["comments"][comentario] = datos_cliente[key_datos_cliente[0]]
                     return jsonify(datos_usuarios)
         contador = 0 + 1
     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
+
 
 # ___________________________ ABM Peliculas ___________________________ #
 
