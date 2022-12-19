@@ -400,20 +400,19 @@ def eliminar_película(usuario_logueado):
         print("No puedes borrar una película con comentarios de otras personas")
         time.sleep(2)
         return
-    else:
-        for comentario in comentarios_película.json():
-            if comentario["username"] == usuario_logueado:
-                print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
-                opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-                if opcion == "1":
-                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
-                    system("cls") #Limpia la terminal
-                    print('Se eliminó '+película_eliminar+' correctamente')
-                    modificar_json_películas(nuevo_json)
-                    time.sleep(2)
-                    return
-                else:
-                    return
+    for comentario in comentarios_película:
+        if comentario["username"] == usuario_logueado:
+            print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
+            opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if opcion == "1":
+                nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+                system("cls") #Limpia la terminal
+                print('Se eliminó '+película_eliminar+' correctamente')
+                modificar_json_películas(nuevo_json)
+                time.sleep(2)
+                return
+            else:
+                return
 
 # ________________________ Agregar/Editar Comentario _________________________ #
 
