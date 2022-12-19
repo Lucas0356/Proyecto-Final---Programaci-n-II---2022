@@ -207,6 +207,12 @@ def modificar_json_películas(películas_actualizado):
     películas_json.close()
     return
 
+def modificar_json_comentarios(comentarios_actualizado):
+    comentarios_json = open ("datos_json/comentarios.json" , "w" , encoding='utf-8')
+    json.dump(comentarios_actualizado, comentarios_json,indent = 4)
+    comentarios_json.close()
+    return
+
 # ______________________________ Buscar ______________________________ #
 
 def buscar_película_nombre():
@@ -282,7 +288,9 @@ def buscar_película_género():
             print ('Imagen representativa: ', película["link_image"])
             print ('-------------------------------')
             print ('Comentarios:')
+            print ('-------------------------------')
             buscar_comentarios(película["title"])
+            print ('===============================\n')
         return
     else:
         print ('\nAún no hay películas publicadas de', genero)
@@ -500,39 +508,32 @@ def editar_comentario(usuario_logueado):
 def eliminar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
-    datos_usuarios = cargar_usuarios()
+    comentarios = cargar_comentarios()
     película = elegir_película_borrar_comentario()
-    comentarios = []
-    for usuario in datos_usuarios["users"]:
-        for comentario_película in usuario["comments"]:
-            if película == comentario_película:
-                comentarios.append({
-                    "username": usuario["username"],
-                    "comment": usuario["comments"][película]}
+    comentarioss = []
+    for comentario in comentarios["comments"]:
+        if usuario_logueado == comentario["username"]:
+            if película == comentario["film"]:
+                comentarioss.append({
+                    "username": comentario["username"],
+                    "film": película,
+                    "comment": comentario["comments"]}
                 )
     if comentarios == []:
         print("\nNo existe ningún comentario para esa película")
         return 
     else:
-        contador = 0
-        for coment in comentarios:
-            if coment["username"] == usuario_logueado:
-                contador += 1
-                print("\nEstá seguro que desea borrar su comentario '" + str(comentarios_usuario[película]) + "' en la película '" + película + "'?")
-                opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-                if opcion == "1":
-                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments', json= {"username" : usuario_logueado}).json()
-                    system("cls") #Limpia la terminal
-                    print("Se eliminó su comentario " + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
-                    modificar_json_usuarios(nuevo_json)
-                    time.sleep(2)
-                    return
-                else:
-                    return
-        if contador == 0:
-            print("\nTodavia no has realizado un comentario en esta película.")
+        print("\nEstá seguro que desea borrar su comentario '" + str(comentarioss[0]["comment"]) + "' en la película '" + str(comentarioss[0]["film"]) + "'?")
+        opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+        if opcion == "1":
+            nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments', json= {"username" : usuario_logueado}).json()
+            system("cls") #Limpia la terminal
+            print("Se eliminó su comentario " + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
+            modificar_json_comentarios(nuevo_json)
+            time.sleep(2)
             return
-        return print(comentarios)
+        else:
+            return
 
 # _____________________ Seleccion info pelicula ______________________ #
 
