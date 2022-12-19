@@ -388,7 +388,7 @@ def editar_película():
             if op == "2":
                 continue
 
-# ________________________ Editar Comentario _________________________ #
+# ________________________ Agregar/Editar Comentario _________________________ #
 
 def agregar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
@@ -413,8 +413,6 @@ def agregar_comentario(usuario_logueado):
                     print("\nYa has realizado un comentario en esta pelicula!")
                     print("[Recuerde que no se puede realizar mas de un comentario en la misma película. Debe volver al")
                     print("menu principal y modificar el comentario ya existente]")
-                else:
-                    print("Que comentario desea realizar sobre " + película)
             continue
         elif op == "2":
             return
@@ -633,6 +631,7 @@ while bucle == 1:
             elif INopcion == '2': # Editar película
                 editar_película()
             elif INopcion == '3': # Agregar comentario
+                agregar_comentario(usuarioIN)
                 print('[3] Agregar Comentario')
             elif INopcion == '4': # Editar comentario
                 editar_comentario(usuarioIN)
