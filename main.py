@@ -118,7 +118,7 @@ def cargar_películas():
 # ______________________ Iniciar Sesion/Registro _____________________ #
 
 def iniciar_sesión():
-    usuarios = (requests.get('http://127.0.0.1:5000/users').json())
+    usuarios = requests.get('http://127.0.0.1:5000/users').json()
     while True:
         system("cls") #Limpia la terminal
         INusuario = input("\nIngrese su nombre de usuario: ")
@@ -283,6 +283,11 @@ def buscar_película_género():
         print ('\nAún no hay películas publicadas de', genero)
         return
 
+def buscar_id(usuario_logueado):
+    usuario_info = requests.get('http://127.0.0.1:5000/user/'+usuario_logueado).json()
+    return usuario_info["id"]
+
+
 # _________________________ Comprobar año/url ________________________ #
 
 def comprobar_url():
@@ -385,15 +390,37 @@ def editar_película():
 
 # ________________________ Editar Comentario _________________________ #
 
-def editar_comentario():
-    usuarios = cargar_usuarios()
-    for usuario in usuarios["users"]:
-        if usuario["username"] == usuarioIN:
-            print("\nQue comentario desea modificar?\n")
-            i = 0
-            for comentario in usuario["comments"]:
-                print("[" + str(i) + "] " + comentario + " - " + str(usuario["comments"][comentario]))
-                i = i + 1
+def editar_comentario(usuario_logueado):
+    id_user = buscar_id(usuario_logueado)
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
+    usuarios_json = cargar_usuarios()
+    lista_comentarios = []
+    contador = 1
+    print ('\n[0] Para salir')
+    for película in comentarios_usuario:
+        print ('[' + str(contador) + '] ' + str(película) + '  :  ' + str(comentarios_usuario[película]))
+        lista_comentarios.append({
+            película: comentarios_usuario[película]
+        })
+        contador = contador + 1
+        time.sleep(0.5)
+    while True:
+        opcion_comentario = input("\n¿Qué comentario desea modificar?: ")
+        if opcion_comentario.isdigit() == True:
+            if int(opcion_comentario) <= len(comentarios_usuario) and int(opcion_comentario) >= 0:
+                if int(opcion_comentario) == 0:
+                    return
+                else:
+                    nuevo_comentario = input("Ingrese su comentario modificado: ")
+                    for usuario in usuarios_json["users"]:
+                        if usuario["username"] == usuario_logueado:
+                            usuario["comments"][película] = nuevo_comentario
+                    modificar_json_usuarios(usuarios_json)
+                    system("cls") #Limpia la terminal
+                    print("¡Comentario modificado con éxito!")
+                    time.sleep(2)
+                    return (lista_comentarios[int(opcion_comentario)-1])
+        print("\nError! Dato ingresado inválido")
 
 # _____________________ Seleccion info pelicula ______________________ #
 
@@ -545,46 +572,46 @@ while bucle == 1:
         if usuarioIN == None:
             continue
         while True: 
-            INopcion = menu_usuario(usuarioIN)
-            if INopcion == '1':
+            INopcion = menu_usuario(usuarioIN) #Nombre de usuario
+            if INopcion == '1': # Agregar película
                 agregar_película()
                 continue
-            elif INopcion == '2':
+            elif INopcion == '2': # Editar película
                 editar_película()
-            elif INopcion == '3':
+            elif INopcion == '3': # Agregar comentario
                 print('[3] Agregar Comentario')
-            elif INopcion == '4':
-                editar_comentario()
+            elif INopcion == '4': # Editar comentario
+                editar_comentario(usuarioIN)
                 print('[4] Editar Comentario')
-            elif INopcion == '5':
+            elif INopcion == '5': # Menú buscar
                 INopcion = menu_buscar()
-                if INopcion == '1':
+                if INopcion == '1': # Buscar por nombre
                     buscar_película_nombre()
                     INopcion = input("\nIngrese algo para volver al menú: ")
                     continue
-                elif INopcion == '2':
+                elif INopcion == '2': # Buscar por director
                     buscar_película_director()
                     INopcion = input("\nIngrese algo para volver al menú: ")
                     continue
-                elif INopcion == '3':
+                elif INopcion == '3': # Buscar por género
                     buscar_película_género()
                     INopcion = input("\nIngrese algo para volver al menú: ")
                     continue
-                elif INopcion == '0':
+                elif INopcion == '0': # Salir
                     continue
-            elif INopcion == '0':
+            elif INopcion == '0': # Salir
                 break
-    elif INopcion == '2':
+    elif INopcion == '2': # Modo público
         ultimas_diez()
         INopcion = input("\nIngrese algo para volver al menú: ")
         continue
-    elif INopcion == '3':
+    elif INopcion == '3': # Registrar nuevo usuario
         nuevo_usuario = registrar_usuario()
         if nuevo_usuario == None:
             continue
         else:
             time.sleep(3)
             continue
-    elif INopcion == '0':
+    elif INopcion == '0': # Salir
         exit
     bucle = 0 # Para romper el bucle
