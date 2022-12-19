@@ -329,10 +329,13 @@ def agregar_película():
 def editar_película():
     menu_editor()
     time.sleep(0.2)
-    pelicula = elegir_película_a_editar()
+    película_user = elegir_película_a_editar()
     películas = cargar_películas()
+    nuevo_json = [] # Aquí se guardara el nuevo json modificado
     for película in películas["films"]:
-        if película["title"] == pelicula:
+        if película["title"] != película_user:
+            nuevo_json.append(película)
+        elif película["title"] == película_user:
             print("\nDesea editar el director? [Director Actual: " + str(película["director"] + "] "))
             op = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
             if op == "1":
@@ -362,10 +365,11 @@ def editar_película():
             print (película)
             op = input("\nOpcion [1] Si [2] No : ")
             if op == "1":
-                a = "FALTA AGREGAR FUNCION QUE LA AGREGA AL JSON"
+                nuevo_json.append(película) #Añadimos la película modificada al resto
+                modificar_json_películas(nuevo_json)
             if op == "2":
                 continue
-            
+
 def editar_comentario():
     usuarios = cargar_usuarios()
     for usuario in usuarios["users"]:
