@@ -394,6 +394,8 @@ def eliminar_película(usuario_logueado):
     system("cls") #Limpia la terminal
     print('\nUsted escogió, "Eliminar película"')
     película_eliminar = elegir_película_a_eliminar()
+    if película_eliminar == None:
+        return
     comentarios_película = requests.get('http://127.0.0.1:5000/films/'+película_eliminar+'/comments').json()
     if len(comentarios_película) > 1:
         system("cls") #Limpia la terminal
@@ -455,6 +457,7 @@ def agregar_comentario(usuario_logueado):
 
 def editar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
+
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
     usuarios_json = cargar_usuarios()
     lista_comentarios = []
@@ -729,7 +732,6 @@ while bucle == 1:
                 editar_película()
             elif INopcion == '3': # Borrar película
                 eliminar_película(usuarioIN)
-                a = input ("a")
             elif INopcion == '4': # Agregar comentario
                 agregar_comentario(usuarioIN)
             elif INopcion == '5': # Editar comentario
