@@ -36,10 +36,11 @@ def menu_usuario(usuario):
         print('-------------------------------')
         print('[1] Agregar Pelicula')
         print('[2] Editar Pelicula')
-        print('[3] Agregar Comentario')
-        print('[4] Editar Comentario')
-        print('[5] Buscar')
-        print('[6] Eliminar película')
+        print('[3] Eliminar Película')
+        print('[4] Agregar Comentario')
+        print('[5] Editar Comentario')
+        print('[6] Eliminar Comentario')
+        print('[7] Buscar')
         print('[0] Salir')
         print('-------------------------------')
         INopcion = input("\nIngrese una opción: ")
@@ -481,6 +482,10 @@ def editar_comentario(usuario_logueado):
                     return (lista_comentarios[int(opcion_comentario)-1])
         print("\nError! Dato ingresado inválido")
 
+def eliminar_comentario(usuario_logueado):
+    id_user = buscar_id(usuario_logueado)
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()    
+
 # _____________________ Seleccion info pelicula ______________________ #
 
 def elegir_película_a_comentar():
@@ -680,13 +685,16 @@ while bucle == 1:
                 continue
             elif INopcion == '2': # Editar película
                 editar_película()
-            elif INopcion == '3': # Agregar comentario
+            elif INopcion == '3': # Borrar película
+                eliminar_película()
+                a = input ("a")
+            elif INopcion == '4': # Agregar comentario
                 agregar_comentario(usuarioIN)
-                print('[3] Agregar Comentario')
-            elif INopcion == '4': # Editar comentario
+            elif INopcion == '5': # Editar comentario
                 editar_comentario(usuarioIN)
-                print('[4] Editar Comentario')
-            elif INopcion == '5': # Menú buscar
+            elif INopcion == '6':
+                eliminar_comentario(usuarioIN)
+            elif INopcion == '7': # Menú buscar
                 INopcion = menu_buscar()
                 if INopcion == '1': # Buscar por nombre
                     buscar_película_nombre()
@@ -702,9 +710,6 @@ while bucle == 1:
                     continue
                 elif INopcion == '0': # Salir
                     continue
-            elif INopcion == '6': # Borrar película
-                eliminar_película()
-                a = input ("a")
             elif INopcion == '0': # Salir
                 break
     elif INopcion == '2': # Modo público
