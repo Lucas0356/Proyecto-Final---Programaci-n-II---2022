@@ -53,7 +53,6 @@ def devolver_usuario(id):
             usuario_info={
                 "username": usuario["username"],
                 "id": usuario["id"],
-                "comments": usuario["comments"]
                 }
             return jsonify(usuario_info)
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)
