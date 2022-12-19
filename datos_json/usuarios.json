@@ -1,28 +1,16 @@
 {
     "users": [
         {
-            "comments": {
-                "One Piece Film: Red": "The best anime in the history",
-                "Sonic 2: The movie": "Meh 5/10 ",
-                "Spiderman-2": "i love spiderman"
-            },
             "id": 0,
             "password": "messi",
             "username": "Juancito2001"
         },
         {
-            "comments": {
-                "Dragon Ball Super Super Hero": "Piccolo is my favourite character in dragon ball world! ;)",
-                "Sonic 2: The movie": "Sonic > Mario"
-            },
             "id": 1,
             "password": "bokitapasion",
             "username": "RicarditoCABJ"
         },
         {
-            "comments": {
-                "Harry Potter": "i love Voldemort"
-            },
             "id": 2,
             "password": "nuevedeldoce",
             "username": "MoristeEnMadrid"
