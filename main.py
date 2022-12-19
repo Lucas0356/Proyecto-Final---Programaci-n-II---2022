@@ -526,7 +526,6 @@ def eliminar_comentario(usuario_logueado):
                     return
                 else:
                     return
-                    comentarios.remove(coment)
         if contador == 0:
             print("\nTodavia no has realizado un comentario en esta película.")
             return
