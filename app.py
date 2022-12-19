@@ -240,26 +240,6 @@ def modificar_comentario(username):
     else:
         return Response("Error!", status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/users/<id>/comments", methods=["POST"]) # Editar comentarios
-def modificar_comentario(id):
-    
-    id_int = int(id)
-    datos_usuarios = cargar_usuarios()
-    datos_cliente = request.get_json()
-    key_datos_cliente = []
-    contador = 0
-    for dato in datos_cliente:
-        if contador == 0:
-            key_datos_cliente.append(dato)
-    for usuario in datos_usuarios["users"]:
-        if id_int == usuario["id"]:
-            for comentario in usuario["comments"]:
-                if comentario == key_datos_cliente[0]:
-                    datos_usuarios["users"][contador]["comments"][comentario] = datos_cliente[key_datos_cliente[0]]
-                    return jsonify(datos_usuarios)
-        contador = 0 + 1
-    return Response("Error!", status=HTTPStatus.BAD_REQUEST)
-
 @app.route("/films/<string:film_search>/comments", methods=["DELETE"])
 def borrar_comentario(film_search):
     datos_usuarios = cargar_usuarios()
