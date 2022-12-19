@@ -116,12 +116,12 @@ def cargar_películas():
     with open('datos_json/películas.json') as archivo_películass:
         películas = json.load(archivo_películass)
         return películas
-    
+
 def cargar_comentarios():
     with open('datos_json/comentarios.json') as archivo_comentarioss:
         comentarios = json.load(archivo_comentarioss)
         return comentarios
-    
+
 # ______________________ Iniciar Sesion/Registro _____________________ #
 
 def iniciar_sesión():
@@ -192,7 +192,6 @@ def registrar_usuario():
                 print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
                 time.sleep(2)
                 continue
-            
 # __________________________ Modificar JSON __________________________ #
 
 def modificar_json_usuarios(usuarios_actualizado):
@@ -427,11 +426,10 @@ def eliminar_película(usuario_logueado):
             else:
                 return
 
-# ________________________ Agregar/Editar Comentario _________________________ #
+# ________________________ Agregar/Editar/Eliminar Comentario _________________________ #
 
 def agregar_comentario(usuario_logueado):
-    id_user = buscar_id(usuario_logueado)
-    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments').json()
     usuarios_json = cargar_usuarios()
     lista_comentarios = []
     if comentarios_usuario != {}:
@@ -468,8 +466,8 @@ def agregar_comentario(usuario_logueado):
 
 def editar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
-
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
+    print (comentarios_usuario)
     usuarios_json = cargar_usuarios()
     lista_comentarios = []
     lista_películas = []

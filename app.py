@@ -38,8 +38,7 @@ def devolver_usuarios():
     for usuario in datos_usuarios["users"]:
         usuarios.append({
             "username": usuario["username"],
-            "id": usuario["id"],
-            "comments": usuario["comments"]}
+            "id": usuario["id"],}
         )
     return jsonify(usuarios)
 
