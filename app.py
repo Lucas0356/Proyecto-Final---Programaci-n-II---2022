@@ -3,7 +3,7 @@ from os import system #La usaremos para limpiar la terminal con system("cls")
 import json
 from flask import Flask, jsonify, request, Response
 
-#Funciones:
+# _______________________________________________________________ Funciones _______________________________________________________________ #
 
 def cargar_películas():
     with open('datos_json/películas.json') as archivo:
@@ -15,14 +15,14 @@ def cargar_usuarios():
         datos_json = json.load(archivo)
         return datos_json
 
-# Código:
+# _______________________________________________________________ Código __________________________________________________________________ #
 
 app = Flask(__name__)
 
 @app.route("/")
 def Inicio():
     return ("<center><h1>Movie World</h1></center>")
-
+# ______________________________ Usuarios ______________________________ #
 @app.route("/users")
 def devolver_usuarios():
     datos_usuarios = cargar_usuarios()
@@ -92,7 +92,7 @@ def crear_usuario():
         return Response("{}",status=HTTPStatus.BAD_REQUEST)
 
 
-#Películas:
+# _____________________________ Peliculas ______________________________ #
 
 @app.route("/films")
 def devolver_películas():
@@ -204,7 +204,6 @@ def ver_comentarios(film_search):
         return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
     else: 
         return jsonify(comentarios)
-
 
 @app.route("/films/<string:film_search>", methods=["DELETE"])
 def borrar_película(film_search):

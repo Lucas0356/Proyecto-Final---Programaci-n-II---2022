@@ -1,8 +1,9 @@
 from os import system #La usaremos para limpiar la terminal con system("cls")
 import requests, json, time, re
 
-# _______________________________________________________________ Funciones _______________________________________________________________
+# _______________________________________________________________ Funciones _______________________________________________________________ #
 
+# ______________________________ Menus ______________________________ #
 def menu_principal():
     while True:
         system("cls") #Limpia la terminal
@@ -92,6 +93,8 @@ def menu_editor():
     print('       Editor de Peliculas       ')
     print('-------------------------------\n')
 
+# ____________________________ Cargar JSON ___________________________ #
+
 def cargar_usuarios():
     with open('datos_json/usuarios.json') as archivo:
         datos_json = json.load(archivo)
@@ -111,6 +114,8 @@ def cargar_películas():
     with open('datos_json/películas.json') as archivo_películass:
         películas = json.load(archivo_películass)
         return películas
+    
+# ______________________ Iniciar Sesion/Registro _____________________ #
 
 def iniciar_sesión():
     usuarios = (requests.get('http://127.0.0.1:5000/users').json())
@@ -180,6 +185,8 @@ def registrar_usuario():
                 print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
                 time.sleep(2)
                 continue
+            
+# __________________________ Modificar JSON __________________________ #
 
 def modificar_json_usuarios(usuarios_actualizado):
     usuarios_json = open ("datos_json/usuarios.json", 'w', encoding='utf-8')
@@ -192,6 +199,8 @@ def modificar_json_películas(películas_actualizado):
     json.dump(películas_actualizado, películas_json, indent = 4)
     películas_json.close()
     return
+
+# ______________________________ Buscar ______________________________ #
 
 def buscar_película_nombre():
     system("cls") #Limpia la terminal
@@ -274,6 +283,8 @@ def buscar_película_género():
         print ('\nAún no hay películas publicadas de', genero)
         return
 
+# _________________________ Comprobar año/url ________________________ #
+
 def comprobar_url():
     while True:
         url_imagen = input("Ingrese la URL a la portada de la pelicula: ")
@@ -293,6 +304,8 @@ def comprobar_año():
             if int(año) >= 1900 and int(año) <= 2023:
                 return (año)
         print("Año no válido")
+
+# _____________________ Agregar/Editar Pelicula ______________________ #
 
 def agregar_película():
     time.sleep(0.2)
@@ -370,6 +383,8 @@ def editar_película():
             if op == "2":
                 continue
 
+# ________________________ Editar Comentario _________________________ #
+
 def editar_comentario():
     usuarios = cargar_usuarios()
     for usuario in usuarios["users"]:
@@ -379,6 +394,8 @@ def editar_comentario():
             for comentario in usuario["comments"]:
                 print("[" + str(i) + "] " + comentario + " - " + str(usuario["comments"][comentario]))
                 i = i + 1
+
+# _____________________ Seleccion info pelicula ______________________ #
 
 def elegir_película_a_editar():
     print("\nA continuación se mostrarán las películas disponibles ...\n")
@@ -482,6 +499,8 @@ def elegir_director():
         
     return director
 
+# ____________________________ Ultimas 10 ____________________________ #
+
 def ultimas_diez():
     ultimas10 = requests.get('http://127.0.0.1:5000/films/last10')
     system("cls") #Limpia la terminal
@@ -502,6 +521,8 @@ def ultimas_diez():
         print ('===============================\n')
     return
 
+# _________________________ Buscar Comentario ________________________ #
+
 def buscar_comentarios(film_title):
     comentarios_película = requests.get('http://127.0.0.1:5000/films/'+film_title+'/comments')
     if str(comentarios_película) != '<Response [400]>':
@@ -514,7 +535,7 @@ def buscar_comentarios(film_title):
         print ('-------------------------------')
         return
 
-# _______________________________________________________________ Código _______________________________________________________________
+# _______________________________________________________________ Código __________________________________________________________________ #
 
 bucle = 1 # Lo usaremos para luego romper el bucle
 while bucle == 1:
