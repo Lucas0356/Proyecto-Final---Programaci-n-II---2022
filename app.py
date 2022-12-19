@@ -275,7 +275,7 @@ def borrar_película(film_search):
     for película in datos_películas["films"]:
         if film_search == película["title"]:
             datos_películas["films"].remove(película)
-            return Response("La Pelicula "+film_search+" se ha eliminado correctamente",status=HTTPStatus.OK)
+            return jsonify(datos_películas)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
 @app.route("/films/<string:film_search>", methods=["PUT"]) # Modificar película

@@ -393,13 +393,13 @@ def eliminar_película():
     system("cls") #Limpia la terminal
     print('\nUsted escogió, "Eliminar película"')
     película_eliminar = elegir_película_a_eliminar()
-    print (película_eliminar)
-    print('¿Está seguro que quiere eliminar '+película_eliminar+'?')
+    print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
     opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
     if opcion == "1":
-        requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+        nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
         system("cls") #Limpia la terminal
-        print('Se eliminó'+película_eliminar+' correctamente')
+        print('Se eliminó '+película_eliminar+' correctamente')
+        modificar_json_películas(nuevo_json)
         time.sleep(2)
         return
     else:
