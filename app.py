@@ -224,9 +224,6 @@ def ver_comentarios(film_search):
 #         contador = 0 + 1
 #     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
 
-
-
-
 @app.route("/users/<id>/comments", methods=["POST"]) # Editar comentarios
 def modificar_comentario(id):
     

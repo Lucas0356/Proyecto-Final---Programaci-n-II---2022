@@ -390,21 +390,32 @@ def editar_película():
             if op == "2":
                 continue
 
-def eliminar_película():
+def eliminar_película(usuario_logueado):
     system("cls") #Limpia la terminal
     print('\nUsted escogió, "Eliminar película"')
     película_eliminar = elegir_película_a_eliminar()
-    print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
-    opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-    if opcion == "1":
-        nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+    if película_eliminar == None:
+        return
+    comentarios_película = requests.get('http://127.0.0.1:5000/films/'+película_eliminar+'/comments').json()
+    if len(comentarios_película) > 1:
         system("cls") #Limpia la terminal
-        print('Se eliminó '+película_eliminar+' correctamente')
-        modificar_json_películas(nuevo_json)
+        print("No puedes borrar una película con comentarios de otras personas")
         time.sleep(2)
         return
-    else:
-        return
+    for comentario in comentarios_película:
+        if comentario["username"] == usuario_logueado:
+            print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
+            opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+            if opcion == "1":
+                nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+                system("cls") #Limpia la terminal
+                print('Se eliminó '+película_eliminar+' correctamente')
+                modificar_json_películas(nuevo_json)
+                time.sleep(2)
+                return
+            else:
+                return
+
 # ________________________ Agregar/Editar Comentario _________________________ #
 
 def agregar_comentario(usuario_logueado):
@@ -446,6 +457,7 @@ def agregar_comentario(usuario_logueado):
 
 def editar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
+
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
     usuarios_json = cargar_usuarios()
     lista_comentarios = []
@@ -484,8 +496,41 @@ def editar_comentario(usuario_logueado):
 
 def eliminar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
-    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()    
-
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
+    lista_comentarios = []
+    if comentarios_usuario != {}:
+        print ("\nSus comentarios actualmente son:\n")
+    contador = 1
+    for película in comentarios_usuario:
+        print ('[' + str(contador) + '] ' + str(película) + '  -  ' + str(comentarios_usuario[película]))
+        lista_comentarios.append({
+            película : comentarios_usuario[película]
+        })
+        contador = contador + 1
+    if lista_comentarios == []:
+        print ("\nAún no hay comentarios")
+    while True:
+        opcion = input("\nDesea eliminar algún comentario? [1 Sí] [2 No]: ")
+        if opcion == "1":
+            while True:
+                comentario_eliminar = input ("\nQue comentario desea eliminar? ")
+                if comentario_eliminar.isdigit() == True:
+                    if int(comentario_eliminar) <= len(comentarios_usuario) and int(comentario_eliminar) >= 0:
+                        if int(comentario_eliminar) == 0:
+                            return
+                        else:
+                            confirmacion = input("Está seguro que desea eliminar el comentario: '" + str(lista_comentarios[int(comentario_eliminar) - 1]) + "'? [1 Sí] [2 No]: ")
+                            if confirmacion == "1":
+                                print("Comentario Eliminado")# Eliminar comentario
+                            elif confirmacion == "2":
+                                return
+                            else:
+                                print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")
+                print("\nError! Dato ingresado inválido")     
+        elif opcion == "2":
+            return
+        else:
+            print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")  
 # _____________________ Seleccion info pelicula ______________________ #
 
 def elegir_película_a_comentar():
@@ -678,7 +723,7 @@ while bucle == 1:
         usuarioIN = iniciar_sesión()
         if usuarioIN == None:
             continue
-        while True: 
+        while True:
             INopcion = menu_usuario(usuarioIN) #Nombre de usuario
             if INopcion == '1': # Agregar película
                 agregar_película()
@@ -686,13 +731,12 @@ while bucle == 1:
             elif INopcion == '2': # Editar película
                 editar_película()
             elif INopcion == '3': # Borrar película
-                eliminar_película()
-                a = input ("a")
+                eliminar_película(usuarioIN)
             elif INopcion == '4': # Agregar comentario
                 agregar_comentario(usuarioIN)
             elif INopcion == '5': # Editar comentario
                 editar_comentario(usuarioIN)
-            elif INopcion == '6':
+            elif INopcion == '6': # Borrar comentario
                 eliminar_comentario(usuarioIN)
             elif INopcion == '7': # Menú buscar
                 INopcion = menu_buscar()
@@ -726,3 +770,4 @@ while bucle == 1:
     elif INopcion == '0': # Salir
         exit
     bucle = 0 # Para romper el bucle
+
