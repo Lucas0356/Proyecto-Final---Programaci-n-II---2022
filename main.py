@@ -408,11 +408,19 @@ def agregar_comentario(usuario_logueado):
         op = input ("\nDesea agregar algun comentario? [1 Sí] [2 No]: ")
         if op == "1":
             película_a_comentar = elegir_película_a_comentar()
+            coincidencias = 0
             for película in comentarios_usuario:
-                if película == película_a_comentar:
-                    print("\nYa has realizado un comentario en esta pelicula!")
-                    print("[Recuerde que no se puede realizar mas de un comentario en la misma película. Debe volver al")
-                    print("menu principal y modificar el comentario ya existente]")
+                if película_a_comentar in película:
+                    coincidencias = + 1
+            if coincidencias == 0:
+                new_comment = input("\nQue comentario desea agregar en '" + película_a_comentar + "': ")
+                comentarios_usuario[película_a_comentar] = new_comment
+            else:
+                print("\nYa has realizado un comentario en esta pelicula!")
+                print("[Recuerde que no se puede realizar mas de un comentario en la misma película. Debe volver al")
+                print("menu principal y modificar el comentario ya existente]")
+                coincidencias = + 1
+                
             continue
         elif op == "2":
             return
