@@ -390,6 +390,37 @@ def editar_película():
 
 # ________________________ Editar Comentario _________________________ #
 
+def agregar_comentario(usuario_logueado):
+    id_user = buscar_id(usuario_logueado)
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
+    usuarios_json = cargar_usuarios()
+    lista_comentarios = []
+    if comentarios_usuario != {}:
+        print ("\nSus comentarios actualmente son:\n")
+    for película in comentarios_usuario:
+        print (str(película) + '  -  ' + str(comentarios_usuario[película]))
+        lista_comentarios.append({
+            película : comentarios_usuario[película]
+        })
+    if lista_comentarios == []:
+        print ("\nAún no hay comentarios")
+    while True:
+        op = input ("\nDesea agregar algun comentario? [1 Sí] [2 No]: ")
+        if op == "1":
+            película_a_comentar = elegir_película_a_comentar()
+            for película in comentarios_usuario:
+                if película == película_a_comentar:
+                    print("\nYa has realizado un comentario en esta pelicula!")
+                    print("[Recuerde que no se puede realizar mas de un comentario en la misma película. Debe volver al")
+                    print("menu principal y modificar el comentario ya existente]")
+                else:
+                    print("Que comentario desea realizar sobre " + película)
+            continue
+        elif op == "2":
+            return
+        else:
+            print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")
+
 def editar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
@@ -398,7 +429,7 @@ def editar_comentario(usuario_logueado):
     contador = 1
     print ('\n[0] Para salir')
     for película in comentarios_usuario:
-        print ('[' + str(contador) + '] ' + str(película) + '  :  ' + str(comentarios_usuario[película]))
+        print ('[' + str(contador) + '] ' + str(película) + '  -  ' + str(comentarios_usuario[película]))
         lista_comentarios.append({
             película: comentarios_usuario[película]
         })
@@ -425,6 +456,27 @@ def editar_comentario(usuario_logueado):
         print("\nError! Dato ingresado inválido")
 
 # _____________________ Seleccion info pelicula ______________________ #
+
+def elegir_película_a_comentar():
+    print("\nA continuación se mostrarán las películas disponibles a comentar ...\n")
+    películas = cargar_películas()
+    time.sleep(2)
+    lista_películas = []
+    contador = 1
+    for película in películas["films"]:
+        print ('[' + str(contador) + '] ' + str(película["title"]))
+        lista_películas.append(película)
+        contador = contador + 1
+        time.sleep(0.5)
+    while True:
+        opcion_película = input("\nQue pelicula desea comentar? ")
+        if opcion_película.isdigit() == True:
+            if int(opcion_película) <= len(películas["films"]) and int(opcion_película) >= 0:
+                if int(opcion_película) == 0:
+                    return
+                else: 
+                    return (lista_películas[int(opcion_película)-1]["title"])
+        print("\nError! Dato ingresado inválido")
 
 def elegir_película_a_editar():
     print("\nA continuación se mostrarán las películas disponibles ...\n")
