@@ -199,6 +199,18 @@ def ver_comentarios(film_search):
     else: 
         return jsonify(comentarios)
 
+@app.route("/users/<string:username>/comments") # Ver comentarios de un usuario
+def buscar_comentarios_usuario(username):
+    datos_comentarios = cargar_comentarios()
+    comentarios = []
+    for comentario in datos_comentarios["comments"]:
+        if comentario["username"] == username:
+            comentarios.append(username)
+    if comentarios == []:
+        return Response("Error!", status=HTTPStatus.BAD_REQUEST)
+    else:
+        return jsonify(datos_comentarios)
+
 # @app.route("/users/<id>/comments", methods=["POST"]) # Agregar comentarios
 # def modificar_comentario(id):
 #     id_int = int(id)
