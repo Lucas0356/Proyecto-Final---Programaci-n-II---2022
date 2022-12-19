@@ -511,16 +511,18 @@ def eliminar_comentario(usuario_logueado):
     comentarios = cargar_comentarios()
     película = elegir_película_borrar_comentario()
     comentarioss = []
-    for comentario in comentarios["comments"]:
-        if usuario_logueado == comentario["username"]:
-            if película == comentario["film"]:
-                comentarioss.append({
-                    "username": comentario["username"],
-                    "film": película,
-                    "comment": comentario["comment"]}
-                )
-    if comentarioss == []:
+    if comentarios != []:
+        for comentario in comentarios["comments"]:
+            if usuario_logueado == comentario["username"]:
+                if película == comentario["film"]:
+                    comentarioss.append({
+                        "username": comentario["username"],
+                        "film": película,
+                        "comment": comentario["comment"]}
+                    )
+    if comentarioss == [] or comentarios == []:
         print("\nNo existe ningún comentario en esa película")
+        time.sleep(2)
         return 
     else:
         print("\nEstá seguro que desea borrar su comentario '" + str(comentarioss[0]["comment"]) + "' en la película '" + str(comentarioss[0]["film"]) + "'?")
