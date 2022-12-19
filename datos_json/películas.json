@@ -87,6 +87,14 @@
             "synopsis": "Forrest Gump, un joven surenio, tenaz e inocente, es protagonista de acontecimientos cruciales en la historia de los Estados Unidos.",
             "title": "Forrest Gump",
             "year": "1994"
+        },
+        {
+            "director": "Tim Burton",
+            "gender": "Accion",
+            "link_image": "https://pics.filmaffinity.com/batman_returns-538628880-large.jpg",
+            "synopsis": "Gotham City se enfrenta a dos nuevos y peculiares criminales: el diabólico y siniestro Pingüino, una criatura solitaria y extrañamente deformada, y la hermosa y seductora Catwoman.",
+            "title": "Batman Regresa",
+            "year": "1992"
         }
     ]
 }
