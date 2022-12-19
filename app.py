@@ -244,7 +244,7 @@ def modificar_comentario(id):
                     return jsonify(datos_usuarios)
         contador = 0 + 1
     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
-"""
+
 @app.route("/films/<string:film_search>/comments", methods=["DELETE"])
 def borrar_comentario(film_search):
     datos_usuarios = cargar_usuarios()
@@ -264,7 +264,7 @@ def borrar_comentario(film_search):
             if coment["username"] == user["username"]:
                 comentarios.remove(coment)
         return jsonify(comentarios)
-"""
+        
 
 # ___________________________ ABM Peliculas ___________________________ #
 
