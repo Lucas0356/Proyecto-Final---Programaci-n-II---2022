@@ -22,7 +22,9 @@ app = Flask(__name__)
 @app.route("/")
 def Inicio():
     return ("<center><h1>Movie World</h1></center>")
+
 # ______________________________ Usuarios ______________________________ #
+
 @app.route("/users")
 def devolver_usuarios():
     datos_usuarios = cargar_usuarios()
@@ -73,6 +75,8 @@ def buscar_usuario(username_search):
             return jsonify(usuario_info)
     return Response("No existe ningún usuario con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
+# ___________________________ Crear Usuario ____________________________ #
+
 @app.route("/users", methods=["POST"])
 def crear_usuario():
     datos_usuarios = cargar_usuarios()
@@ -102,26 +106,6 @@ def devolver_películas():
             película
         )
     return jsonify(películas)
-
-@app.route("/films", methods=["POST"])
-def crear_película():
-    datos_películas = cargar_películas()
-    datos_cliente = request.get_json()
-    print (datos_cliente["title"])
-    existe = False
-    if "title" in datos_cliente and "year" in datos_cliente and "director" in datos_cliente and "gender" in datos_cliente and "synopsis" in datos_cliente and "link_image" in datos_cliente:
-        for película in datos_películas["films"]:
-            print (película["title"])
-            print (datos_cliente["title"])
-            if datos_cliente["title"] == película["title"]:
-                existe = True
-    if existe == False:
-        datos_películas["films"].append(
-        datos_cliente
-        )
-        return jsonify(datos_películas)
-    elif existe == True:
-        return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
 
 @app.route("/films/directors")
 def devolver_directores():
@@ -197,6 +181,8 @@ def buscar_película(film_search):
     else: 
         return jsonify(films_found)
 
+# ____________________________ Comentarios ____________________________ #
+
 @app.route("/films/<string:film_search>/comments")
 def ver_comentarios(film_search):
     datos_usuarios = cargar_usuarios()
@@ -213,6 +199,28 @@ def ver_comentarios(film_search):
     else: 
         return jsonify(comentarios)
 
+# ___________________________ ABM Peliculas ___________________________ #
+
+@app.route("/films", methods=["POST"])
+def crear_película():
+    datos_películas = cargar_películas()
+    datos_cliente = request.get_json()
+    print (datos_cliente["title"])
+    existe = False
+    if "title" in datos_cliente and "year" in datos_cliente and "director" in datos_cliente and "gender" in datos_cliente and "synopsis" in datos_cliente and "link_image" in datos_cliente:
+        for película in datos_películas["films"]:
+            print (película["title"])
+            print (datos_cliente["title"])
+            if datos_cliente["title"] == película["title"]:
+                existe = True
+    if existe == False:
+        datos_películas["films"].append(
+        datos_cliente
+        )
+        return jsonify(datos_películas)
+    elif existe == True:
+        return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
+
 @app.route("/films/<string:film_search>", methods=["DELETE"])
 def borrar_película(film_search):
     datos_películas = cargar_películas()
@@ -222,17 +230,6 @@ def borrar_película(film_search):
             print ('Se borro correctamente', film_search)
             return Response(status=HTTPStatus.OK)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
-
-@app.route("/films/last10")
-def mostrar_ultimas10():
-    datos_películas = cargar_películas()
-    películas = []
-    for película in reversed(datos_películas["films"]) :
-        películas.append(película)
-        if len(películas) == 10:
-            break
-    return jsonify(películas)
-
 
 @app.route("/films/<string:film_search>", methods=["PUT"]) # Modificar película
 def editar_pelicula(film_search):
@@ -254,5 +251,16 @@ def editar_pelicula(film_search):
                 pelicula["director"] = datos_editados["director"]
             return jsonify(datos_peliculas)
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
+
+# _______________________ Ultimas 10 Peliculas _______________________ #
+@app.route("/films/last10")
+def mostrar_ultimas10():
+    datos_películas = cargar_películas()
+    películas = []
+    for película in reversed(datos_películas["films"]) :
+        películas.append(película)
+        if len(películas) == 10:
+            break
+    return jsonify(películas)
 
 app.run(debug=True)
