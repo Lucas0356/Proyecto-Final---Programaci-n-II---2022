@@ -380,45 +380,28 @@ def editar_comentario():
                 print("[" + str(i) + "] " + comentario + " - " + str(usuario["comments"][comentario]))
                 i = i + 1
 
-
 def elegir_película_a_editar():
-    print("\nA continuación se mostrarán las peliculas disponibles ...\n")
-    print("[Recuerde que el genero y el director, solo se pueden elegir segun los ya cargados en el sistema.]\n")
+    print("\nA continuación se mostrarán las películas disponibles ...\n")
+    print("[Recuerde que el género y el director, solo se pueden elegir según los ya provistos por el sistema.]\n")
     películas = cargar_películas()
-    i = 0
     time.sleep(2)
+    lista_películas = []
+    contador = 1
+    print ('[0] Para salir')
     for película in películas["films"]:
-        print ('[' + str(i) + '] ' + str(película["title"]))
-        i = i + 1
+        print ('[' + str(contador) + '] ' + str(película["title"]))
+        lista_películas.append(película)
+        contador = contador + 1
         time.sleep(0.5)
-    película = "vacío"
-    while película == "vacío":
+    while True:
         opcion_película = input("\nQue pelicula desea editar? ")
-        if opcion_película == '0':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '1':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '2':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '3':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '4':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '5':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '6':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '7':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '8':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '9':
-            película = películas["films"][int(opcion_película)]["title"]
-        elif opcion_película == '10':
-            película = películas["films"][int(opcion_película)]["title"]
-        else:
-            print("\nError! Debe ingresar el numero que corresponda segun el genero que desea.")
-    return película
+        if opcion_película.isdigit() == True:
+            if int(opcion_película) <= len(películas["films"]) and int(opcion_película) >= 0:
+                if int(opcion_película) == 0:
+                    return
+                else: 
+                    return (lista_películas[int(opcion_película)-1]["title"])
+        print("\nError! Dato ingresado inválido")
 
 def elegir_genero():
     menu_genero()
