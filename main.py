@@ -498,7 +498,7 @@ def eliminar_comentario(usuario_logueado):
     id_user = buscar_id(usuario_logueado)
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
     datos_usuarios = cargar_usuarios()
-    película = "One Piece Film: Red"
+    película = elegir_película_borrar_comentario()
     comentarios = []
     for usuario in datos_usuarios["users"]:
         for comentario_película in usuario["comments"]:
@@ -508,11 +508,28 @@ def eliminar_comentario(usuario_logueado):
                     "comment": usuario["comments"][película]}
                 )
     if comentarios == []:
-        return print("No existe ningún comentario para esa película")
+        print("\nNo existe ningún comentario para esa película")
+        return 
     else:
+        contador = 0
         for coment in comentarios:
             if coment["username"] == usuario_logueado:
-                comentarios.remove(coment)
+                contador += 1
+                print("\nEstá seguro que desea borrar su comentario '" + str(comentarios_usuario[película]) + "' en la película '" + película + "'?")
+                opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+                if opcion == "1":
+                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments').json()
+                    system("cls") #Limpia la terminal
+                    print("Se eliminó su comentario" + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
+                    modificar_json_usuarios(nuevo_json)
+                    time.sleep(2)
+                    return
+                else:
+                    return
+                    comentarios.remove(coment)
+        if contador == 0:
+            print("\nTodavia no has realizado un comentario en esta película.")
+            return
         return print(comentarios)
 
     # lista_comentarios = []
@@ -550,6 +567,27 @@ def eliminar_comentario(usuario_logueado):
     #     else:
     #         print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")  
 # _____________________ Seleccion info pelicula ______________________ #
+
+def elegir_película_borrar_comentario():
+    print("\nA continuación se mostrarán las películas ...\n")
+    películas = cargar_películas()
+    time.sleep(2)
+    lista_películas = []
+    contador = 1
+    for película in películas["films"]:
+        print ('[' + str(contador) + '] ' + str(película["title"]))
+        lista_películas.append(película)
+        contador = contador + 1
+        time.sleep(0.5)
+    while True:
+        opcion_película = input("\nEn que pelicula desea borrar su comentario? ")
+        if opcion_película.isdigit() == True:
+            if int(opcion_película) <= len(películas["films"]) and int(opcion_película) >= 0:
+                if int(opcion_película) == 0:
+                    return
+                else: 
+                    return (lista_películas[int(opcion_película)-1]["title"])
+        print("\nError! Dato ingresado inválido")
 
 def elegir_película_a_comentar():
     print("\nA continuación se mostrarán las películas disponibles a comentar ...\n")
