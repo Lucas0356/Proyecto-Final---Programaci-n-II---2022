@@ -60,7 +60,7 @@ def devolver_comentarios(id):
             return jsonify(usuario["comments"])
     return Response("No existe ningún usuario con ese ID", status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/<string:username_search>") #Tuve que quitar el /users pq sino iba al del id
+@app.route("/user/<string:username_search>") 
 def buscar_usuario(username_search):
     datos_usuarios = cargar_usuarios()
     for usuario in datos_usuarios["users"]:
