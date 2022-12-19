@@ -728,13 +728,16 @@ while bucle == 1:
                 continue
             elif INopcion == '2': # Editar película
                 editar_película()
-            elif INopcion == '3': # Agregar comentario
+            elif INopcion == '3': # Borrar película
+                eliminar_película(usuarioIN)
+                a = input ("a")
+            elif INopcion == '4': # Agregar comentario
                 agregar_comentario(usuarioIN)
-                print('[3] Agregar Comentario')
-            elif INopcion == '4': # Editar comentario
+            elif INopcion == '5': # Editar comentario
                 editar_comentario(usuarioIN)
-                print('[4] Editar Comentario')
-            elif INopcion == '5': # Menú buscar
+            elif INopcion == '6': # Borrar comentario
+                editar_comentario(usuarioIN)
+            elif INopcion == '7': # Menú buscar
                 INopcion = menu_buscar()
                 if INopcion == '1': # Buscar por nombre
                     buscar_película_nombre()
@@ -750,9 +753,6 @@ while bucle == 1:
                     continue
                 elif INopcion == '0': # Salir
                     continue
-            elif INopcion == '6': # Borrar película
-                eliminar_película(usuarioIN)
-                a = input ("a")
             elif INopcion == '0': # Salir
                 break
     elif INopcion == '2': # Modo público
