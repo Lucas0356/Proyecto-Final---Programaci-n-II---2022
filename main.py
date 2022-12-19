@@ -519,9 +519,9 @@ def eliminar_comentario(usuario_logueado):
                 print("\nEstá seguro que desea borrar su comentario '" + str(comentarios_usuario[película]) + "' en la película '" + película + "'?")
                 opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
                 if opcion == "1":
-                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments', json= "aca va").json()
+                    nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+ película + '/comments', json= {"username" : usuario_logueado}).json()
                     system("cls") #Limpia la terminal
-                    print("Se eliminó su comentario" + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
+                    print("Se eliminó su comentario " + str(comentarios_usuario[película]) +" de la película '" + película + "' correctamente")
                     modificar_json_usuarios(nuevo_json)
                     time.sleep(2)
                     return
@@ -531,41 +531,7 @@ def eliminar_comentario(usuario_logueado):
             print("\nTodavia no has realizado un comentario en esta película.")
             return
         return print(comentarios)
-
-    # lista_comentarios = []
-    # if comentarios_usuario != {}:
-    #     print ("\nSus comentarios actualmente son:\n")
-    # contador = 1
-    # for película in comentarios_usuario:
-    #     print ('[' + str(contador) + '] ' + str(película) + '  -  ' + str(comentarios_usuario[película]))
-    #     lista_comentarios.append({
-    #         película : comentarios_usuario[película]
-    #     })
-    #     contador = contador + 1
-    # if lista_comentarios == []:
-    #     print ("\nAún no hay comentarios")
-    # while True:
-    #     opcion = input("\nDesea eliminar algún comentario? [1 Sí] [2 No]: ")
-    #     if opcion == "1":
-    #         while True:
-    #             comentario_eliminar = input ("\nQue comentario desea eliminar? ")
-    #             if comentario_eliminar.isdigit() == True:
-    #                 if int(comentario_eliminar) <= len(comentarios_usuario) and int(comentario_eliminar) >= 0:
-    #                     if int(comentario_eliminar) == 0:
-    #                         return
-    #                     else:
-    #                         confirmacion = input("Está seguro que desea eliminar el comentario: '" + película + ": " + str(comentarios_usuario[película]) + "'? [1 Sí] [2 No]: ")
-    #                         if confirmacion == "1":
-    #                             print("Comentario Eliminado")# Eliminar comentario
-    #                         elif confirmacion == "2":
-    #                             return
-    #                         else:
-    #                             print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")
-    #             print("\nError! Dato ingresado inválido")     
-    #     elif opcion == "2":
-    #         return
-    #     else:
-    #         print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")  
+          
 # _____________________ Seleccion info pelicula ______________________ #
 
 def elegir_película_borrar_comentario():
