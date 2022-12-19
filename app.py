@@ -249,7 +249,7 @@ def modificar_comentario(id):
 
 # ___________________________ ABM Peliculas ___________________________ #
 
-@app.route("/films", methods=["POST"])
+@app.route("/films", methods=["POST"]) # Agregar película
 def crear_película():
     datos_películas = cargar_películas()
     datos_cliente = request.get_json()
@@ -269,7 +269,7 @@ def crear_película():
     elif existe == True:
         return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/films/<string:film_search>", methods=["DELETE"])
+@app.route("/films/<string:film_search>", methods=["DELETE"]) # Borrar película
 def borrar_película(film_search):
     datos_películas = cargar_películas()
     for película in datos_películas["films"]:

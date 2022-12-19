@@ -390,8 +390,20 @@ def editar_película():
                 continue
 
 def eliminar_película():
-    print("eliminar película")
-
+    system("cls") #Limpia la terminal
+    print('\nUsted escogió, "Eliminar película"')
+    película_eliminar = elegir_película_a_eliminar()
+    print (película_eliminar)
+    print('¿Está seguro que quiere eliminar '+película_eliminar+'?')
+    opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+    if opcion == "1":
+        requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+        system("cls") #Limpia la terminal
+        print('Se eliminó'+película_eliminar+' correctamente')
+        time.sleep(2)
+        return
+    else:
+        return
 # ________________________ Agregar/Editar Comentario _________________________ #
 
 def agregar_comentario(usuario_logueado):
@@ -507,6 +519,28 @@ def elegir_película_a_editar():
         time.sleep(0.5)
     while True:
         opcion_película = input("\nQue pelicula desea editar? ")
+        if opcion_película.isdigit() == True:
+            if int(opcion_película) <= len(películas["films"]) and int(opcion_película) >= 0:
+                if int(opcion_película) == 0:
+                    return
+                else: 
+                    return (lista_películas[int(opcion_película)-1]["title"])
+        print("\nError! Dato ingresado inválido")
+
+def elegir_película_a_eliminar():
+    print("\nA continuación se mostrarán las películas disponibles ...\n")
+    películas = cargar_películas()
+    time.sleep(2)
+    lista_películas = []
+    contador = 1
+    print ('[0] Para salir')
+    for película in películas["films"]:
+        print ('[' + str(contador) + '] ' + str(película["title"]))
+        lista_películas.append(película)
+        contador = contador + 1
+        time.sleep(0.5)
+    while True:
+        opcion_película = input("\n¿Qué pelicula desea eliminar? ")
         if opcion_película.isdigit() == True:
             if int(opcion_película) <= len(películas["films"]) and int(opcion_película) >= 0:
                 if int(opcion_película) == 0:
