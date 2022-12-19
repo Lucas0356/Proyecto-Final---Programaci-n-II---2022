@@ -3,32 +3,32 @@
         {
             "username": "Juancito2001",
             "film":"One Piece Film: Red",
-            "comments": "The best anime in the history"
+            "comment": "The best anime in the history"
         }, 
         {
             "username": "Juancito2001",
             "film":"Sonic 2: The movie",
-            "comments": "Meh 5/10"
+            "comment": "Meh 5/10"
         },
         {
             "username": "Juancito2001",
             "film":"Spiderman-2",
-            "comments": "i love spiderman"
+            "comment": "i love spiderman"
         },
         {
             "username": "RicarditoCABJ",
             "film":"Dragon Ball Super Super Hero-2",
-            "comments": "Piccolo is my favourite character in dragon ball world! ;)"
+            "comment": "Piccolo is my favourite character in dragon ball world! ;)"
         },
         {
             "username": "RicarditoCABJ",
             "film":"Sonic 2: The movie",
-            "comments": "Sonic > Mario"
+            "comment": "Sonic > Mario"
         },
         {
             "username": "MoristeEnMadrid",
             "film":"Harry Potter",
-            "comments": "i love Voldemort"
+            "comment": "i love Voldemort"
         }
     ]
 }

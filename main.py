@@ -45,7 +45,7 @@ def menu_usuario(usuario):
         print('-------------------------------')
         INopcion = input("\nIngrese una opción: ")
         if INopcion.isdigit() == True:
-            if int(INopcion) >= 0 and int(INopcion) <= 6:
+            if int(INopcion) >= 0 and int(INopcion) <= 7:
                 return (INopcion)
             else:
                 print("\nIngrese una opción válida")
@@ -282,9 +282,7 @@ def buscar_película_género():
             print ('Imagen representativa: ', película["link_image"])
             print ('-------------------------------')
             print ('Comentarios:')
-            print ('-------------------------------')
             buscar_comentarios(película["title"])
-            print ('===============================\n')
         return
     else:
         print ('\nAún no hay películas publicadas de', genero)
@@ -293,7 +291,6 @@ def buscar_película_género():
 def buscar_id(usuario_logueado):
     usuario_info = requests.get('http://127.0.0.1:5000/user/'+usuario_logueado).json()
     return usuario_info["id"]
-
 
 # _________________________ Comprobar año/url ________________________ #
 
@@ -536,7 +533,7 @@ def eliminar_comentario(usuario_logueado):
             print("\nTodavia no has realizado un comentario en esta película.")
             return
         return print(comentarios)
-          
+
 # _____________________ Seleccion info pelicula ______________________ #
 
 def elegir_película_borrar_comentario():
