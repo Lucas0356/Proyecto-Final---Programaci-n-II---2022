@@ -490,16 +490,14 @@ def editar_comentario(usuario_logueado):
     while True:
         opcion_comentario = input("\nElija una opción: ")
         if opcion_comentario.isdigit() == True:
-            if int(opcion_comentario) <= len(comentarios_usuario["comments"]) and int(opcion_comentario) >= 0:
+            if int(opcion_comentario) <= len(comentarios_usuario) and int(opcion_comentario) >= 0:
                 if int(opcion_comentario) == 0:
                     return
                 else:
                     nuevo_comentario = input("Ingrese su comentario modificado: ")
                     pelicula_nombre = lista_películas[int(opcion_comentario)-1] 
                     comentarios_modificado = {"film": pelicula_nombre, "comment": nuevo_comentario}
-                    print(comentarios_modificado)
                     datos_actualizados = requests.put('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments', json=comentarios_modificado).json()
-                    print (datos_actualizados)
                     modificar_json_comentarios(datos_actualizados)
                     system("cls") #Limpia la terminal
                     print("¡Comentario modificado con éxito!")
