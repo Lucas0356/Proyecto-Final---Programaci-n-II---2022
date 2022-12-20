@@ -624,6 +624,7 @@ def elegir_película_a_editar():
         print("\nError! Dato ingresado inválido")
 
 def elegir_película_a_eliminar():
+    system("cls") #Limpia la terminal
     print("\nA continuación se mostrarán las películas disponibles ...\n")
     películas = cargar_películas()
     time.sleep(2)
@@ -721,7 +722,6 @@ def elegir_director():
             director = "Woody Allen"
         else:
             print("Error! Debe ingresar el numero que corresponda segun el director que desea.")
-        
     return director
 
 # ____________________________ Ultimas 10 ____________________________ #

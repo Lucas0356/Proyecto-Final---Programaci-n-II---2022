@@ -17,6 +17,22 @@
             "year": "2022"
         },
         {
+            "director": "Sam Raimi",
+            "gender": "Accion",
+            "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx",
+            "synopsis": "Luego de sufrir la picadura de una arania geneticamente modificada, un estudiante de secundaria timido y torpe adquiere increibles capacidades como aracnido. Pronto comprendera que su mision es utilizarlas para luchar contra el mal y defender a sus vecinos.",
+            "title": "Spiderman-1",
+            "year": "2002"
+        },
+        {
+            "director": "Sam Raimi",
+            "gender": "Accion",
+            "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx",
+            "synopsis": "El atormentado Peter Parker lucha contra un cientifico siniestro que utiliza sus tentaculos mecanicos con fines destructivos.",
+            "title": "Spiderman-2",
+            "year": "2004"
+        },
+        {
             "director": "Tetsuro Kodama",
             "gender": "Fantasia",
             "link_image": "https://static.wikia.nocookie.net/dragonball/images/6/6e/Dragon_Ball_Super_Super_Hero_%28novela_ligera%29_portada.png/revision/latest?cb=20220311180826&path-prefix=es",
@@ -28,7 +44,7 @@
             "director": "Francis Ford Coppola",
             "gender": "Crimen",
             "link_image": "https://es.web.img3.acsta.net/pictures/18/06/12/12/12/0117051.jpg?coixp=49&coiyp=27",
-            "synopsis": "Don Vito Corleone es el respetado y temido jefe de una de las cinco familias de la mafia de Nueva York en los anos 40. El hombre tiene cuatro hijos: Connie, Sonny, Fredo y Michael, que no quiere saber nada de los negocios sucios de su padre. Cuando otro capo, Sollozzo, intenta asesinar a Corleone, empieza una cruenta lucha entre los distintos clanes.\u00e2\u20ac\u2039",
+            "synopsis": "Don Vito Corleone es el respetado y temido jefe de una de las cinco familias de la mafia de Nueva York en los anos 40. El hombre tiene cuatro hijos: Connie, Sonny, Fredo y Michael, que no quiere saber nada de los negocios sucios de su padre. Cuando otro capo, Sollozzo, intenta asesinar a Corleone, empieza una cruenta lucha entre los distintos clanes.",
             "title": "El Padrino",
             "year": "1972"
         },
@@ -36,7 +52,7 @@
             "director": "James Cameron",
             "gender": "Romance",
             "link_image": "https://r3.abcimg.es/resizer/resizer.php?imagen=https%3A%2F%2Fstatic4.abc.es%2Fmedia%2Fpeliculas%2F000%2F044%2F428%2Ftitanic-1.jpg&nuevoancho=620&medio=abc",
-            "synopsis": "Una joven de la alta sociedad abandona a su arrogante pretendiente por un artista humilde en el trasatlantico que se hundio durante su viaje inaugural.\u00e2\u20ac\u2039",
+            "synopsis": "Una joven de la alta sociedad abandona a su arrogante pretendiente por un artista humilde en el trasatlantico que se hundio durante su viaje inaugural.",
             "title": "Titanic",
             "year": "1997"
         },
@@ -44,7 +60,7 @@
             "director": "James Cameron",
             "gender": "Ciencia Ficcion",
             "link_image": "https://pics.filmaffinity.com/Avatar-265462659-large.jpg",
-            "synopsis": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que aparentan ser primitivos pero que en realidad son muy evolucionados. Debido a que el ambiente de Pandora es venenoso, los hibridos humanos/Na'vi, llamados Avatares, estan relacionados con las mentes humanas, lo que les permite moverse libremente por Pandora. Jake Sully, un exinfante de marina paralitico se transforma a traves de un Avatar, y se enamora de una mujer Na'vi.\u00e2\u20ac\u2039",
+            "synopsis": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que aparentan ser primitivos pero que en realidad son muy evolucionados. Debido a que el ambiente de Pandora es venenoso, los hibridos humanos/Na'vi, llamados Avatares, estan relacionados con las mentes humanas, lo que les permite moverse libremente por Pandora. Jake Sully, un exinfante de marina paralitico se transforma a traves de un Avatar, y se enamora de una mujer Na'vi.",
             "title": "Avatar",
             "year": "2009"
         },
@@ -52,7 +68,7 @@
             "director": "Tim Burton",
             "gender": "Fantasia",
             "link_image": "https://pics.filmaffinity.com/Alicia_en_el_pa_s_de_las_maravillas-913066428-large.jpg",
-            "synopsis": "Alicia, ahora una joven de 19 anios de edad, regresa al Pais de las Maravillas para encontrar su verdadero destino y terminar con el gobierno de terror de la malvada reina Roja.\u00e2\u20ac\u2039",
+            "synopsis": "Alicia, ahora una joven de 19 anios de edad, regresa al Pais de las Maravillas para encontrar su verdadero destino y terminar con el gobierno de terror de la malvada reina Roja.",
             "title": "Alicia en el pais de las Maravillas",
             "year": "2010"
         },
@@ -60,7 +76,7 @@
             "director": "Gore Verbinski",
             "gender": "Accion",
             "link_image": "https://static.wikia.nocookie.net/cine/images/6/62/Piratas_del_Caribe.jpg/revision/latest?cb=20201006154235",
-            "synopsis": "El capitan Barbossa le roba el barco al pirata Jack Sparrow y secuestra a Elizabeth, amiga de Will Turner. Barbossa y su tripulacion son victimas de un conjuro que los condena a vivir eternamente y a transformarse cada noche en esqueletos vivientes.\u00e2\u20ac\u2039",
+            "synopsis": "El capitan Barbossa le roba el barco al pirata Jack Sparrow y secuestra a Elizabeth, amiga de Will Turner. Barbossa y su tripulacion son victimas de un conjuro que los condena a vivir eternamente y a transformarse cada noche en esqueletos vivientes.",
             "title": "Piratas del Caribe: La maldicion del Perla Negra",
             "year": "2003"
         },
@@ -76,7 +92,7 @@
             "director": "Tim Burton",
             "gender": "Accion",
             "link_image": "https://pics.filmaffinity.com/batman_returns-538628880-large.jpg",
-            "synopsis": "Gotham City se enfrenta a dos nuevos y peculiares criminales: el diab\u00c3\u00b3lico y siniestro Ping\u00c3\u00bcino, una criatura solitaria y extra\u00c3\u00b1amente deformada, y la hermosa y seductora Catwoman.",
+            "synopsis": "Gotham City se enfrenta a dos nuevos y peculiares criminales: el diabolico y siniestro Pinguino, una criatura solitaria y extramadamente deformada, y la hermosa y seductora Catwoman.",
             "title": "Batman Regresa",
             "year": "1992"
         }
