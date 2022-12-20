@@ -194,11 +194,11 @@ def buscar_comentarios_usuario(username):
     comentarios = []
     for comentario in datos_comentarios["comments"]:
         if comentario["username"] == username:
-            comentarios.append(username)
+            comentarios.append(comentario)
     if comentarios == []:
         return Response("Error!", status=HTTPStatus.BAD_REQUEST)
     else:
-        return jsonify(datos_comentarios)
+        return jsonify(comentarios)
 
 @app.route("/users/<string:username>/comments", methods=["POST"]) # Agregar comments
 def crear_comentario():
