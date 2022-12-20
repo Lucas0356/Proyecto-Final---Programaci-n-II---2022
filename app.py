@@ -201,10 +201,9 @@ def buscar_comentarios_usuario(username):
         return jsonify(comentarios)
 
 @app.route("/users/<string:username>/comments", methods=["POST"]) # Agregar comments
-def crear_comentario():
+def crear_comentario(username):
     datos_comentarios = cargar_comentarios()
     datos_cliente = request.get_json()
-    print (datos_cliente["title"])
     existe = False
     if "film" in datos_cliente and "comment" in datos_cliente:
         for comentario in datos_comentarios["comments"]:
