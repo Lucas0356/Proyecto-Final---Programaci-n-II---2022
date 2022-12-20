@@ -256,8 +256,9 @@ def modificar_comentario(username):
             índice = datos_comentarios["comments"].index(comentario)
             if comentario["username"] == username:
                 if  comentario["film"] == datos_cliente["film"]:
-                    datos_comentarios["comments"][índice]["comment"] = datos_cliente["comment"]
-                    return jsonify(datos_comentarios)
+                    datos_comentarios.update({datos_comentarios["comments"][índice]["comment"]: datos_cliente["comment"]})
+                    print (datos_comentarios)
+                    return (jsonify(datos_comentarios))
     else:
         return Response("Error!", status=HTTPStatus.BAD_REQUEST)
 
