@@ -477,14 +477,14 @@ def editar_comentario(usuario_logueado):
     contador = 1
     print ('\nSus comentarios son los siguientes...')
     print ('\n[0] Para salir')
-    for comentario in comentarios_usuario["comments"]:
-        print ('[' + str(contador) + '] ' + str(comentario["film"]) + '  -  ' + str(comentario["comment"]))
-        lista_comentarios.append({
-            comentario["film"]: comentario["comment"]
-        })
-        lista_películas.append(comentario["film"])
-        contador = contador + 1
-        time.sleep(0.5)
+    for comentario in comentarios_usuario:
+            print ('[' + str(contador) + '] ' + str(comentario["film"]) + '  -  ' + str(comentario["comment"]))
+            lista_comentarios.append({
+                comentario["film"]: comentario["comment"]
+            })
+            lista_películas.append(comentario["film"])
+            contador = contador + 1
+            time.sleep(0.5)
     if lista_comentarios == []:
         print ("\nAún no hay comentarios")
     while True:
