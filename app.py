@@ -254,20 +254,37 @@ def modificar_comentario(username):
             índice = datos_comentarios["comments"].index(comentario)
             if comentario["username"] == username:
                 if  comentario["film"] == datos_cliente["film"]:
-                    del(datos_comentarios["comments"][índice]["comment"])
-                    datos_comentarios["comments"][índice]["comment"] = datos_cliente["comment"]
+                    datos_comentarios.update({datos_comentarios["comments"][índice]["comment"]: datos_cliente["comment"]})
+                    print (datos_comentarios)
                     return (jsonify(datos_comentarios))
     else:
         return Response("Error!", status=HTTPStatus.BAD_REQUEST)
 
-@app.route("/films/<string:film_search>/comments", methods=["DELETE"])
-def borrar_comentario(film_search):
+@app.route("/users/<string:username>/comments", methods=["DELETE"]) # Borrar comentario
+def borrar_comentario(username):
     datos_comentarios = cargar_comentarios()
-    user = request.get_json()
-    for comment in datos_comentarios["comments"]:
-        if comment["username"] == user["username"] and film_search == comment["film"]:
-            datos_comentarios["comments"].remove(comment)
-            return jsonify(datos_comentarios)
+    datos_cliente = request.get_json()
+    print (datos_cliente)
+    if "film" in datos_cliente:
+        contador = 0
+        for comentario in datos_comentarios["comments"]:
+            if datos_cliente["film"] == comentario["film"]:
+                if comentario["username"] == username:
+                    indice = datos_comentarios["comments"].index(comentario)
+                    del(datos_comentarios["comments"][indice])
+                    return jsonify(datos_comentarios)
+    else:
+        return Response("Error!", status=HTTPStatus.BAD_REQUEST)
+
+
+# @app.route("/films/<string:film_search>/comments", methods=["DELETE"])
+# def borrar_comentario(film_search):
+#     datos_comentarios = cargar_comentarios()
+#     user = request.get_json()
+#     for comment in datos_comentarios["comments"]:
+#         if comment["username"] == user["username"] and film_search == comment["film"]:
+#             datos_comentarios["comments"].remove(comment)
+#             return jsonify(datos_comentarios)
         
 
 # ___________________________ ABM Peliculas ___________________________ #
