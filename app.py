@@ -237,7 +237,6 @@ def borrar_comentario(username):
     datos_cliente = request.get_json()
     print (datos_cliente)
     if "film" in datos_cliente:
-        contador = 0
         for comentario in datos_comentarios["comments"]:
             if datos_cliente["film"] == comentario["film"]:
                 if comentario["username"] == username:

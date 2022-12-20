@@ -430,6 +430,7 @@ def eliminar_película(usuario_logueado):
             opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
             if opcion == "1":
                 nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+                eliminar_comentarios_película(película_eliminar, usuario_logueado)
                 system("cls") #Limpia la terminal
                 print('Se eliminó '+película_eliminar+' correctamente')
                 modificar_json_películas(nuevo_json)
@@ -549,6 +550,11 @@ def eliminar_comentario(usuario_logueado):
             return
         else:
             return
+
+def eliminar_comentarios_película(película,usuario_logueado):
+    nuevo_json = requests.delete('http://127.0.0.1:5000/users/'+ usuario_logueado + '/comments', json= {"film" : película}).json()
+    modificar_json_comentarios(nuevo_json)
+    return
 
 # _____________________ Seleccion info pelicula ______________________ #
 

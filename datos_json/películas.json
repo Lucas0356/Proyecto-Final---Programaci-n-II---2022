@@ -17,22 +17,6 @@
             "year": "2022"
         },
         {
-            "director": "Sam Raimi",
-            "gender": "Accion",
-            "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx",
-            "synopsis": "Luego de sufrir la picadura de una arania geneticamente modificada, un estudiante de secundaria timido y torpe adquiere increibles capacidades como aracnido. Pronto comprendera que su mision es utilizarlas para luchar contra el mal y defender a sus vecinos.",
-            "title": "Spiderman-1",
-            "year": "2002"
-        },
-        {
-            "director": "Sam Raimi",
-            "gender": "Accion",
-            "link_image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQy6KUcWyJB0yL6-ML2qojIbh-N3MqeMywbWZlDGW7FbwK4lsLx",
-            "synopsis": "El atormentado Peter Parker lucha contra un cientifico siniestro que utiliza sus tentaculos mecanicos con fines destructivos.",
-            "title": "Spiderman-2",
-            "year": "2004"
-        },
-        {
             "director": "Tetsuro Kodama",
             "gender": "Fantasia",
             "link_image": "https://static.wikia.nocookie.net/dragonball/images/6/6e/Dragon_Ball_Super_Super_Hero_%28novela_ligera%29_portada.png/revision/latest?cb=20220311180826&path-prefix=es",
@@ -92,7 +76,7 @@
             "director": "Tim Burton",
             "gender": "Accion",
             "link_image": "https://pics.filmaffinity.com/batman_returns-538628880-large.jpg",
-            "synopsis": "Gotham City se enfrenta a dos nuevos y peculiares criminales: el diabólico y siniestro Pingüino, una criatura solitaria y extrañamente deformada, y la hermosa y seductora Catwoman.",
+            "synopsis": "Gotham City se enfrenta a dos nuevos y peculiares criminales: el diab\u00c3\u00b3lico y siniestro Ping\u00c3\u00bcino, una criatura solitaria y extra\u00c3\u00b1amente deformada, y la hermosa y seductora Catwoman.",
             "title": "Batman Regresa",
             "year": "1992"
         }
