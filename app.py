@@ -182,11 +182,8 @@ def ver_comentarios(film_search):
     comentarios = []
     for comentario in datos_comentarios["comments"]:
         if comentario["film"] == film_search:
-                comentarios.append(comentario)
-    if comentarios == []:
-        return Response("No existe ningún comentario para esa película", status=HTTPStatus.BAD_REQUEST)
-    else: 
-        return jsonify(comentarios)
+                comentarios.append(comentario) 
+    return jsonify(comentarios)
 
 @app.route("/users/<string:username>/comments") # Ver comentarios de un usuario
 def buscar_comentarios_usuario(username):
