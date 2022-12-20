@@ -206,19 +206,17 @@ def crear_comentario():
     datos_cliente = request.get_json()
     print (datos_cliente["title"])
     existe = False
-    if "film" in datos_cliente and "username" in datos_cliente and "comment" in datos_cliente:
-        for película in datos_películas["films"]:
-            print (película["title"])
-            print (datos_cliente["title"])
-            if datos_cliente["title"] == película["title"]:
+    if "film" in datos_cliente and "comment" in datos_cliente:
+        for comentario in datos_comentarios["comments"]:
+            if datos_cliente["film"] == comentario["film"]:
                 existe = True
     if existe == False:
-        datos_películas["films"].append(
+        datos_comentarios["comments"].append(
         datos_cliente
         )
-        return jsonify(datos_películas)
+        return jsonify(datos_comentarios)
     elif existe == True:
-        return Response("Ya hay una película cargada con ese nombre",status=HTTPStatus.BAD_REQUEST)
+        return Response("Ya has realizado un comentario en esa película.",status=HTTPStatus.BAD_REQUEST)
 
 
 # @app.route("/users/<id>/comments", methods=["POST"]) # Agregar comentarios
