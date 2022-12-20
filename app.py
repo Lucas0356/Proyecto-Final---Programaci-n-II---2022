@@ -210,6 +210,7 @@ def crear_comentario(username):
             if datos_cliente["film"] == comentario["film"]:
                 existe = True
     if existe == False:
+        datos_cliente["username"] = username
         datos_comentarios["comments"].append(
         datos_cliente
         )
