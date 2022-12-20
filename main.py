@@ -471,20 +471,18 @@ def agregar_comentario(usuario_logueado):
             print("\nError! Debe de escoger entre '1' y '2' segun sus preferencias")
 
 def editar_comentario(usuario_logueado):
-    id_user = buscar_id(usuario_logueado)
-    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+str(id_user)+'/comments').json()
-    print (comentarios_usuario)
-    usuarios_json = cargar_usuarios()
+    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments').json()
     lista_comentarios = []
     lista_películas = []
     contador = 1
+    print ('\nSus comentarios son los siguientes...')
     print ('\n[0] Para salir')
-    for película in comentarios_usuario:
-        print ('[' + str(contador) + '] ' + str(película) + '  -  ' + str(comentarios_usuario[película]))
+    for comentario in comentarios_usuario["comments"]:
+        print ('[' + str(contador) + '] ' + str(comentario["film"]) + '  -  ' + str(comentario["comment"]))
         lista_comentarios.append({
-            película: comentarios_usuario[película]
+            comentario["film"]: comentario["comment"]
         })
-        lista_películas.append(película)
+        lista_películas.append(comentario["film"])
         contador = contador + 1
         time.sleep(0.5)
     if lista_comentarios == []:
@@ -492,17 +490,17 @@ def editar_comentario(usuario_logueado):
     while True:
         opcion_comentario = input("\nElija una opción: ")
         if opcion_comentario.isdigit() == True:
-            if int(opcion_comentario) <= len(comentarios_usuario) and int(opcion_comentario) >= 0:
+            if int(opcion_comentario) <= len(comentarios_usuario["comments"]) and int(opcion_comentario) >= 0:
                 if int(opcion_comentario) == 0:
                     return
                 else:
                     nuevo_comentario = input("Ingrese su comentario modificado: ")
-                    for usuario in usuarios_json["users"]:
-                        if usuario["username"] == usuario_logueado:
-                            pelicula_nombre = lista_películas[int(opcion_comentario)-1] 
-                            comentarios_modificado = {pelicula_nombre: nuevo_comentario}
-                            datos_actualizados = requests.post('http://127.0.0.1:5000/users/'+str(id_user)+'/comments', json=comentarios_modificado).json()
-                    modificar_json_usuarios(datos_actualizados)
+                    pelicula_nombre = lista_películas[int(opcion_comentario)-1] 
+                    comentarios_modificado = {"film": pelicula_nombre, "comment": nuevo_comentario}
+                    print(comentarios_modificado)
+                    datos_actualizados = requests.put('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments', json=comentarios_modificado).json()
+                    print (datos_actualizados)
+                    modificar_json_comentarios(datos_actualizados)
                     system("cls") #Limpia la terminal
                     print("¡Comentario modificado con éxito!")
                     time.sleep(2)
