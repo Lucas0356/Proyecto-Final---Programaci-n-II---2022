@@ -430,16 +430,16 @@ def eliminar_película(usuario_logueado):
 
 def agregar_comentario(usuario_logueado):
     comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments').json()
-    usuarios_json = cargar_usuarios()
-    lista_comentarios = []
+    comentarioss = []
     if comentarios_usuario != {}:
         print ("\nSus comentarios actualmente son:\n")
-    for película in comentarios_usuario:
-        print (str(película) + '  -  ' + str(comentarios_usuario[película]))
-        lista_comentarios.append({
-            película : comentarios_usuario[película]
+    for comentario in comentarios_usuario:
+        print (str(comentario["film"]) + '  -  ' + str(comentario["comment"]))
+        comentarioss.append({
+            "film":comentario["film"],
+            "comment":comentario["comment"]
         })
-    if lista_comentarios == []:
+    if comentarioss == []:
         print ("\nAún no hay comentarios")
     while True:
         op = input ("\nDesea agregar algun comentario? [1 Sí] [2 No]: ")
@@ -447,17 +447,23 @@ def agregar_comentario(usuario_logueado):
             película_a_comentar = elegir_película_a_comentar()
             coincidencias = 0
             for película in comentarios_usuario:
-                if película_a_comentar in película:
+                if película_a_comentar == película["film"]:
                     coincidencias = + 1
             if coincidencias == 0:
                 new_comment = input("\nQue comentario desea agregar en '" + película_a_comentar + "': ")
-                comentarios_usuario[película_a_comentar] = new_comment
+                new_content = {
+                    "username" : usuario_logueado,
+                    "film" : película_a_comentar,
+                    "comment" : new_comment,
+                }
+                comentarios = requests.post('http://127.0.0.1:5000/users/' + usuario_logueado + '/comments',json=new_content)
+                modificar_json_comentarios(comentarios.json())
+                print("\nUsted añadio correctamente su comentario!")
+                return
             else:
                 print("\nYa has realizado un comentario en esta pelicula!")
                 print("[Recuerde que no se puede realizar mas de un comentario en la misma película. Debe volver al")
                 print("menu principal y modificar el comentario ya existente]")
-                coincidencias = + 1
-                
             continue
         elif op == "2":
             return
