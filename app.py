@@ -218,32 +218,6 @@ def crear_comentario(username):
     elif existe == True:
         return Response("Ya has realizado un comentario en esa película.",status=HTTPStatus.BAD_REQUEST)
 
-
-# @app.route("/users/<id>/comments", methods=["POST"]) # Agregar comentarios
-# def modificar_comentario(id):
-#     id_int = int(id)
-#     datos_usuarios = cargar_usuarios()
-#     datos_cliente = request.get_json()
-#     key_datos_cliente = []
-#     contador = 0
-#     comentarios = {}
-#     for dato in datos_cliente:
-#         if contador == 0:
-#             key_datos_cliente.append(dato)
-#     for usuario in datos_usuarios["users"]:
-#         if id_int == usuario["id"]:
-#             for pelicula_comentario in usuario["comments"]:
-#                 coincidencias = 0
-#                 if pelicula_comentario == key_datos_cliente[0]:
-#                     coincidencias = coincidencias + 1
-#                 else:
-#                     print("printa")
-#             if coincidencias == 0:
-#                 datos_usuarios["users"][contador]["comments"][pelicula_comentario] = datos_cliente[key_datos_cliente[0]]
-#                 return jsonify(datos_usuarios)
-#         contador = 0 + 1
-#     return Response("Error!", status=HTTPStatus.BAD_REQUEST)
-
 @app.route("/users/<string:username>/comments", methods=["PUT"]) # Editar comentarios
 def modificar_comentario(username):
     datos_comentarios = cargar_comentarios()
@@ -275,17 +249,6 @@ def borrar_comentario(username):
                     return jsonify(datos_comentarios)
     else:
         return Response("Error!", status=HTTPStatus.BAD_REQUEST)
-
-
-# @app.route("/films/<string:film_search>/comments", methods=["DELETE"])
-# def borrar_comentario(film_search):
-#     datos_comentarios = cargar_comentarios()
-#     user = request.get_json()
-#     for comment in datos_comentarios["comments"]:
-#         if comment["username"] == user["username"] and film_search == comment["film"]:
-#             datos_comentarios["comments"].remove(comment)
-#             return jsonify(datos_comentarios)
-        
 
 # ___________________________ ABM Peliculas ___________________________ #
 
