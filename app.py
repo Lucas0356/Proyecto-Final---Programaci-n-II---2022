@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from os import system #La usaremos para limpiar la terminal con system("cls")
 import json
 from flask import Flask, jsonify, request, Response
 
@@ -19,7 +18,6 @@ def cargar_comentarios():
     with open('datos_json/comentarios.json') as archivo:
         datos_json = json.load(archivo)
         return datos_json
-
 
 # _______________________________________________________________ Código __________________________________________________________________ #
 
@@ -192,8 +190,6 @@ def buscar_comentarios_usuario(username):
     for comentario in datos_comentarios["comments"]:
         if comentario["username"] == username:
             comentarios.append(comentario)
-    if comentarios == []:
-        return Response("Error!", status=HTTPStatus.BAD_REQUEST)
     else:
         return jsonify(comentarios)
 
@@ -205,7 +201,8 @@ def crear_comentario(username):
     if "film" in datos_cliente and "comment" in datos_cliente:
         for comentario in datos_comentarios["comments"]:
             if datos_cliente["film"] == comentario["film"]:
-                existe = True
+                if datos_cliente["username"] == comentario["username"]:
+                    existe = True
     if existe == False:
         datos_cliente["username"] = username
         datos_comentarios["comments"].append(
@@ -299,6 +296,7 @@ def editar_pelicula(film_search):
     return Response("No existe ninguna película con ese nombre", status=HTTPStatus.BAD_REQUEST)
 
 # _______________________ Ultimas 10 Peliculas _______________________ #
+
 @app.route("/films/last10")
 def mostrar_ultimas10():
     datos_películas = cargar_películas()

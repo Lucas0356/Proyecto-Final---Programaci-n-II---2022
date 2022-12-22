@@ -4,11 +4,12 @@ import requests, json, time, re
 # _______________________________________________________________ Funciones _______________________________________________________________ #
 
 # ______________________________ Menus ______________________________ #
+
 def menu_principal():
     while True:
         system("cls") #Limpia la terminal
         print('-------------------------------')
-        print('       Nombre Programa         ')
+        print('\tNombre Programa         ')
         print('-------------------------------')
         print('[1] Iniciar sesión')
         print('[2] Modo público')
@@ -192,6 +193,7 @@ def registrar_usuario():
                 print('\nEl nombre de usuario ', INnombre_usuario, ' ya existe')
                 time.sleep(2)
                 continue
+
 # __________________________ Modificar JSON __________________________ #
 
 def modificar_json_usuarios(usuarios_actualizado):
@@ -324,14 +326,22 @@ def comprobar_año():
 # _____________________ Agregar/Editar/Eliminar Pelicula ______________________ #
 
 def agregar_película():
+    películas = requests.get('http://127.0.0.1:5000/films').json()
     time.sleep(0.2)
+    system("cls") #Limpia la terminal
     print('\nUsted escogió, "Agregar Pelicula". Recuerde que los generos y directores, solo pueden ser escogidos entre los')
     print('ya cargados en el sistema.')
     comprobador = True
     while comprobador:
+        title_movie = input("\nIngrese el titulo de la pelicula que desea añadir: ")
+        for película in películas:
+            if película["title"].capitalize() == title_movie.capitalize():
+                system("cls") #Limpia la terminal
+                print("Ya existe una película con ese título!")
+                time.sleep(2)
+                return
         genero = elegir_genero()
         director = elegir_director()
-        title_movie = input("Ingrese el titulo de la pelicula que desea añadir: ")
         year_movie = comprobar_año()
         synopsis_movie = input("Ingrese la sinopsis de la pelicula que desea añadir: ")
         img_movie = comprobar_url()
@@ -349,7 +359,9 @@ def agregar_película():
         if op == "1":
             películas = requests.post('http://127.0.0.1:5000/films',json=new_movie)
             modificar_json_películas(películas.json())
-            print("\nUsted añadio correctamente su pelicula!")
+            system("cls") #Limpia la terminal
+            print("\nUsted añadió correctamente su pelicula!")
+            time.sleep(2)
             comprobador = False
         if op == "2":
             return
@@ -412,7 +424,7 @@ def eliminar_película(usuario_logueado):
         print("No puedes borrar una película con comentarios de otras personas")
         time.sleep(2)
         return
-    if comentarios_película == []:
+    elif comentarios_película == []:
         print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
         opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
         if opcion == "1":
@@ -424,20 +436,31 @@ def eliminar_película(usuario_logueado):
             return
         else:
             return
-    for comentario in comentarios_película:
-        if comentario["username"] == usuario_logueado:
-            print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
-            opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
-            if opcion == "1":
-                nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
-                eliminar_comentarios_película(película_eliminar, usuario_logueado)
-                system("cls") #Limpia la terminal
-                print('Se eliminó '+película_eliminar+' correctamente')
-                modificar_json_películas(nuevo_json)
-                time.sleep(2)
-                return
-            else:
-                return
+    else: 
+        coincidencias = 0
+        for comentario in comentarios_película:
+            if comentario["username"] == usuario_logueado:
+                coincidencias = coincidencias + 1
+        if coincidencias == 0:
+            system("cls") #Limpia la terminal
+            print("No puedes borrar una película con comentarios de otras personas")
+            time.sleep(2)
+            return
+        elif coincidencias == 1:
+            for comentario in comentarios_película:
+                if comentario["username"] == usuario_logueado:
+                    print('\n¿Está seguro que quiere eliminar '+película_eliminar+'?')
+                    opcion = input("\n[Presione 1 para sí] [Cualquier otra tecla para no]: ")
+                    if opcion == "1":
+                        nuevo_json = requests.delete('http://127.0.0.1:5000/films/'+película_eliminar).json()
+                        eliminar_comentarios_película(película_eliminar, usuario_logueado)
+                        system("cls") #Limpia la terminal
+                        print('Se eliminó '+película_eliminar+' correctamente')
+                        modificar_json_películas(nuevo_json)
+                        time.sleep(2)
+                        return
+                    else:
+                        return
 
 # ________________________ Agregar/Editar/Eliminar Comentario _________________________ #
 
@@ -520,8 +543,6 @@ def editar_comentario(usuario_logueado):
         print("\nError! Dato ingresado inválido")
 
 def eliminar_comentario(usuario_logueado):
-    id_user = buscar_id(usuario_logueado)
-    comentarios_usuario = requests.get('http://127.0.0.1:5000/users/'+usuario_logueado+'/comments').json()
     comentarios = cargar_comentarios()
     película = elegir_película_borrar_comentario()
     comentarioss = []
@@ -749,9 +770,9 @@ def ultimas_diez():
 # _________________________ Buscar Comentario ________________________ #
 
 def buscar_comentarios(film_title):
-    comentarios_película = requests.get('http://127.0.0.1:5000/films/'+film_title+'/comments')
-    if str(comentarios_película) != '<Response [400]>':
-        for comentario in comentarios_película.json():
+    comentarios_película = requests.get('http://127.0.0.1:5000/films/'+film_title+'/comments').json()
+    if comentarios_película != []:
+        for comentario in comentarios_película:
             print ('Usuario: ', comentario["username"])
             print ('Comentario: ', comentario["comment"])
             print ('-------------------------------')
@@ -816,4 +837,3 @@ while bucle == 1:
     elif INopcion == '0': # Salir
         exit
     bucle = 0 # Para romper el bucle
-
